@@ -5,6 +5,7 @@ import {MatList, MatListModule} from "@angular/material/list";
 import {MatInput, MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -15,7 +16,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatListModule,
     MatInputModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ],
    exports: [
 
@@ -23,7 +25,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
      MatListModule,
      MatInputModule,
      MatButtonModule,
-     MatFormFieldModule
+     MatFormFieldModule,
+     MatIconModule
    ]
 })
 export class MaterialModule { }

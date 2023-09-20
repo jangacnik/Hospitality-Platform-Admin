@@ -1,19 +1,19 @@
 <div class="flex items-center justify-center h-screen">
-  <div class="flex rotate-6 h-1/3 w-1/3  bg-blue-300 rounded-2xl p-0.5" >
+  <div class="flex rotate-6 h-1/3 w-1/3 bg-blue-300 rounded-2xl p-0.5" >
     <mat-card class="-rotate-6 flex-1 w-full h-full mx-auto p-4 m-auto">
       <mat-card-header class="font-bold text-2xl self-center mb-3">
         Resort Platform Admin
       </mat-card-header>
-      <form class="flex flex-col px-4">
+      <form class="flex flex-col px-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
           <mat-label>E-mail</mat-label>
-          <input matInput type="email">
+          <input matInput type="email" formControlName="email">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput label="Passowrd" type="password">
+          <mat-label>Password  {{loginForm.status}}</mat-label>
+          <input matInput label="Password" type="password" formControlName="password">
         </mat-form-field>
-          <button class="self-center w-full" mat-raised-button type="submit">Login</button>
+          <button [disabled]="loginForm.invalid" class="self-center w-full" mat-raised-button type="submit">Login</button>
       </form>
     </mat-card>
   </div>

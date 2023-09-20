@@ -7,4 +7,6 @@ export class LoginResponse {
     this.refreshToken = refreshToken;
   }
 
+
+
 }
