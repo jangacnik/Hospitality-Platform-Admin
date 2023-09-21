@@ -1,1 +1,35 @@
-<p>dashboard works!</p>
+<div class="w-screen p-2">
+  <div class="flex w-full rounded-2xl">
+    <div class="w-full">
+      <div class="table-wrp block max-h-96">
+        <table class="w-full w-">
+          <thead class="bg-white border-b sticky top-0">
+          <!-- table head content -->
+          <tr>
+            <th scope="col" class="px-6 py-3">
+              Employee number
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Name
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Department
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Meals
+            </th>
+          </tr>
+          </thead>
+          <tbody class="h-96 overflow-y-auto">
+              <tr *ngFor="let value of users" class="bg-blue-50">
+                <td> {{value.user.employeeNumber}}</td>
+                <td> {{value.user.lastName}} {{value.user.firstName}}</td>
+                <td> {{value.user.departments.join(",")}}</td>
+                <td>{{value.mealEntry.mealCount}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

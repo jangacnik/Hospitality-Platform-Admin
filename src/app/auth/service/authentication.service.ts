@@ -12,7 +12,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   public login(email: String, password: String): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>("http://0.0.0.0:8888/api/v1/auth/signin", {email: email, password: password});
+    return this.http.post<LoginResponse>("http://0.0.0.0:8888/api/v1/auth/signinadmin", {email: email, password: password});
   }
   isLoggedIn(): boolean {
    return Boolean(localStorage.getItem("jwt"));

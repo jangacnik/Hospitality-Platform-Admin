@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-user-managment',
+  selector: 'app-auth-managment',
   templateUrl: './user-managment.component.html',
   styleUrls: ['./user-managment.component.css']
 })
