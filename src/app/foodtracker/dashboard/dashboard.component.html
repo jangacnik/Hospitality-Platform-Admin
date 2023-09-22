@@ -1,35 +1,57 @@
-<div class="w-screen p-2">
-  <div class="flex w-full rounded-2xl">
-    <div class="w-full">
-      <div class="table-wrp block max-h-96">
-        <table class="w-full w-">
-          <thead class="bg-white border-b sticky top-0">
-          <!-- table head content -->
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              Employee number
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Name
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Department
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Meals
-            </th>
-          </tr>
-          </thead>
-          <tbody class="h-96 overflow-y-auto">
-              <tr *ngFor="let value of users" class="bg-blue-50">
-                <td> {{value.user.employeeNumber}}</td>
-                <td> {{value.user.lastName}} {{value.user.firstName}}</td>
-                <td> {{value.user.departments.join(",")}}</td>
-                <td>{{value.mealEntry.mealCount}}</td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<mat-toolbar fxLayoutGap="20px" fxLayoutAlign="center center">
+  <mat-label (click)="employessSelected()">Employees</mat-label>
+  <mat-label (click)="mealsSelected()">Meals</mat-label>
+</mat-toolbar>
+<div fxFlexFill fxLayout="column" style="background-color: brown">
+  <div fxFlex *ngIf="showEmployees"  style="background-color: brown; overflow: auto">
+    <table mat-table [dataSource]="employess">
+      <ng-container matColumnDef="employeeNumber">
+        <th mat-header-cell *matHeaderCellDef> Employee No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.employeeNumber}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
+    </ng-container>
+      <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef> Departments </th>
+      <td mat-cell *matCellDef="let element"> {{element.departments.join(", ")}} </td>
+    </ng-container><ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div fxFlex *ngIf="showMeals" style="background-color: red">
+    <table mat-table [dataSource]="users">
+      <ng-container matColumnDef="employeeNumber">
+        <th mat-header-cell *matHeaderCellDef> Employee No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.user.employeeNumber}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.user.firstName}} {{element.user.lastName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef> Departments </th>
+        <td mat-cell *matCellDef="let element"> {{element.user.departments.join(", ")}} </td>
+      </ng-container>
+      <ng-container matColumnDef="meals">
+        <th mat-header-cell *matHeaderCellDef>Number of meals</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.mealEntry.mealCount}}
+        </td>
+    </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsMeals; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsMeals;"></tr>
+    </table>
   </div>
 </div>

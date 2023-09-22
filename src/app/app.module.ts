@@ -13,9 +13,16 @@ import {MaterialModule} from "./material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
-import {heroBuildingStorefront, heroUser, heroUserGroup, heroUsers} from '@ng-icons/heroicons/outline';
+import {
+  heroBuildingStorefront,
+  heroPencilSquare,
+  heroUser,
+  heroUserGroup,
+  heroUsers
+} from '@ng-icons/heroicons/outline';
 import {NgIconsModule} from "@ng-icons/core";
 import {JwtInterceptor} from "./auth/interceptor/jwt.interceptor";
+import {FlexModule} from "@angular/flex-layout";
 
 const routes: Routes = [
   {   path: 'user',   component: ProfileComponent, canActivate: [loginActivateGuard]   },
@@ -38,9 +45,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    NgIconsModule.withIcons({heroBuildingStorefront, heroUserGroup}),
+    NgIconsModule.withIcons({heroBuildingStorefront, heroUserGroup, heroPencilSquare}),
     // material
     MaterialModule,
+    FlexModule,
     //http
     HttpClientModule,
     // modules

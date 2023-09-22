@@ -6,6 +6,8 @@ import {UserManagmentComponent} from "./user-managment/user-managment.component"
 import {MaterialModule} from "../material.module";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {JwtInterceptor} from "../auth/interceptor/jwt.interceptor";
+import {NgIcon} from "@ng-icons/core";
+import {FlexModule} from "@angular/flex-layout";
 
 
 
@@ -17,7 +19,9 @@ import {JwtInterceptor} from "../auth/interceptor/jwt.interceptor";
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    NgIcon,
+    FlexModule
   ],
   exports: [
     DashboardComponent,

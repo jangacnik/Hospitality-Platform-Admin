@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
 import {FoodTrackerEntryFull} from "../model/FoodTrackerEntryFull";
 import {FoodTrackerUserWithMealEntry} from "../model/FoodTrackerUserWithMealEntry";
+import {FoodTrackerUser} from "../model/FoodTrackerUser";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +10,14 @@ import {FoodTrackerUserWithMealEntry} from "../model/FoodTrackerUserWithMealEntr
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit{
+
+  displayedColumns: string[] = ['employeeNumber', 'name', 'department', 'options'];
+  displayedColumnsMeals: string[] = ['employeeNumber', 'name', 'department', 'meals'];
+  showMeals = false;
+  showEmployees = true;
   users: any;
   enties: any;
+  employess: FoodTrackerUser[] = [];
     constructor(private foodTrackerRestService: FoodTrackerRestService) {
     }
   ngOnInit(): void {
@@ -30,6 +37,13 @@ export class DashboardComponent implements OnInit{
       }
       console.log("entries", this.users);
     });
+
+    this.foodTrackerRestService.getAllUsers().subscribe(
+      (data: FoodTrackerUser[]) => {
+        this.employess = data;
+        this.employess.sort((a,b) => +a.employeeNumber - +b.employeeNumber);
+      }
+    )
   }
 
   getUser(userWithEntry: FoodTrackerUserWithMealEntry) {
@@ -39,5 +53,23 @@ export class DashboardComponent implements OnInit{
   getEntry(userWithEntry: FoodTrackerUserWithMealEntry) {
     return userWithEntry.mealEntry;
   }
+
+  selectChanged() {
+      this.showEmployees = !this.showEmployees;
+      this.showMeals = !this.showMeals;
+  }
+
+  mealsSelected() {
+
+    this.showEmployees = false;
+    this.showMeals = true;
+  }
+
+  employessSelected() {
+    this.showEmployees = true;
+    this.showMeals = false;
+
+  }
+
 
 }

@@ -1,9 +1,8 @@
-.table-wrp  {
-  max-height: 93vh;
-  overflow-y: auto;
-  display:block;
+table {
+  width: 100%;
 }
-thead{
-  position:sticky;
-  top:0
+
+.table-container {
+  height: 300px;
+  overflow: auto;
 }
