@@ -12,4 +12,5 @@ export class FoodTrackerUser {
     this.employeeNumber = employeeNumber;
     this.departments = departments;
   }
+
 }

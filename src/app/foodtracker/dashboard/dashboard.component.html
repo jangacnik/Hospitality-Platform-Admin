@@ -4,6 +4,22 @@
 </mat-toolbar>
 <div fxFlexFill fxLayout="column" style="background-color: brown">
   <div fxFlex *ngIf="showEmployees"  style="background-color: brown; overflow: auto">
+    <mat-card>
+      <mat-card-content>
+        <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="searchName">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Department</mat-label>
+            <input matInput label="Department" type="text" formControlName="searchDepartment">
+          </mat-form-field>
+          <button mat-raised-button type="submit">Search</button>
+          <button mat-raised-button type="reset" (click)="onReset()">Reset</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
     <table mat-table [dataSource]="employess">
       <ng-container matColumnDef="employeeNumber">
         <th mat-header-cell *matHeaderCellDef> Employee No. </th>
@@ -19,7 +35,7 @@
     </ng-container><ng-container matColumnDef="options">
       <th mat-header-cell *matHeaderCellDef>  </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button>
+        <button mat-icon-button (click)="onUserEdit(element)">
           <mat-icon>edit</mat-icon>
         </button>
       </td>
@@ -30,6 +46,8 @@
     </table>
   </div>
   <div fxFlex *ngIf="showMeals" style="background-color: red">
+
+      <button mat-raised-button (click)="getReport()">Download report</button>
     <table mat-table [dataSource]="users">
       <ng-container matColumnDef="employeeNumber">
         <th mat-header-cell *matHeaderCellDef> Employee No. </th>
@@ -49,6 +67,10 @@
           {{element.mealEntry.mealCount}}
         </td>
     </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Departments </th>
+        <td mat-cell *matCellDef="let element"> {{element.total | currency:'EUR'}} </td>
+      </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsMeals; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsMeals;"></tr>

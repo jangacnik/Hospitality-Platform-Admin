@@ -1,0 +1,32 @@
+<div fxFlex fxLayout="column">
+  <mat-form-field>
+  <mat-label>First name</mat-label>
+  <input matInput type="text"  [ngModel]="user?.firstName">
+</mat-form-field><mat-form-field>
+  <mat-label>Last name</mat-label>
+  <input matInput type="text" [ngModel]="user?.lastName">
+</mat-form-field>
+  <mat-form-field>
+    <mat-label>E-mail</mat-label>
+    <input matInput type="email"  [ngModel]="user?.email">
+  </mat-form-field>
+  <mat-form-field class="example-chip-list">
+    <mat-label>Favorite Fruits</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter fruits">
+      <mat-chip-row *ngFor="let dep of user?.departments"
+                    (removed)="remove(dep)"
+                    [editable]="true">
+        {{dep}}
+        <button matChipRemove [attr.aria-label]="'remove ' + dep">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      <input placeholder="New department..."
+             [matChipInputFor]="chipGrid"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="true"
+             (matChipInputTokenEnd)="add($event)"/>
+    </mat-chip-grid>
+  </mat-form-field>
+  <button mat-raised-button type="submit">Login</button>
+</div>

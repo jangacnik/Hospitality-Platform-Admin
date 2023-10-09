@@ -8,6 +8,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTable, MatTableModule} from "@angular/material/table";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatChipsModule} from "@angular/material/chips";
 
 
 
@@ -22,7 +24,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatIconModule,
     MatListModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule,
+    MatChipsModule
   ],
    exports: [
      MatCardModule,
@@ -33,7 +37,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
      MatIconModule,
      MatListModule,
      MatTableModule,
-     MatToolbarModule
+     MatToolbarModule,
+     MatDialogModule,
+     MatChipsModule
    ]
 })
 export class MaterialModule { }

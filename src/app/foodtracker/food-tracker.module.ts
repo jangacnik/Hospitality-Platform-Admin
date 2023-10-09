@@ -8,6 +8,8 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {JwtInterceptor} from "../auth/interceptor/jwt.interceptor";
 import {NgIcon} from "@ng-icons/core";
 import {FlexModule} from "@angular/flex-layout";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 
 
 
@@ -15,14 +17,17 @@ import {FlexModule} from "@angular/flex-layout";
   declarations: [
     DashboardComponent,
     ReportComponent,
-    UserManagmentComponent
+    UserManagmentComponent,
+    UserEditDialogComponent
   ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    NgIcon,
-    FlexModule
-  ],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        NgIcon,
+        FlexModule,
+        FormsModule,
+        ReactiveFormsModule
+    ],
   exports: [
     DashboardComponent,
     ReportComponent,
