@@ -1,9 +1,13 @@
 <mat-toolbar fxLayoutGap="20px" fxLayoutAlign="center center">
-  <mat-label (click)="employessSelected()">Employees</mat-label>
-  <mat-label (click)="mealsSelected()">Meals</mat-label>
+  <button mat-raised-button (click)="employessSelected()">Employees</button>
+  <button mat-raised-button (click)="mealsSelected()">Meals</button>
+  <button mat-raised-button (click)="reservationsSelected()">Reservations</button>
+  <span fxFlex></span>
+  <button mat-raised-button style="background-color: turquoise" *ngIf="showEmployees" (click)="getReport()">Add new employee</button>
+  <button mat-raised-button style="background-color: aquamarine" *ngIf="showMeals" (click)="getReport()">Download report</button>
 </mat-toolbar>
-<div fxFlexFill fxLayout="column" style="background-color: brown">
-  <div fxFlex *ngIf="showEmployees"  style="background-color: brown; overflow: auto">
+<div fxFlexFill fxLayout="column">
+  <div fxFlex *ngIf="showEmployees"  style=" overflow: auto; margin: 10px">
     <mat-card>
       <mat-card-content>
         <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm" (ngSubmit)="onSearch()">
@@ -11,9 +15,13 @@
             <mat-label>Name</mat-label>
             <input matInput type="text" formControlName="searchName">
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field *ngIf="departmentList !== undefined">
             <mat-label>Department</mat-label>
-            <input matInput label="Department" type="text" formControlName="searchDepartment">
+            <mat-select formControlName="searchDepartment">
+              <mat-option *ngFor="let dep of departmentList" [value]="dep.name">
+                {{dep.id}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
           <button mat-raised-button type="submit">Search</button>
           <button mat-raised-button type="reset" (click)="onReset()">Reset</button>
@@ -45,9 +53,29 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <div fxFlex *ngIf="showMeals" style="background-color: red">
+  <div fxFlex *ngIf="showMeals" style="margin: 10px">
+    <mat-card>
+      <mat-card-content>
+        <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="searchName">
+          </mat-form-field>
+          <mat-form-field *ngIf="departmentList !== undefined">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="searchDepartment">
+              <mat-option *ngFor="let dep of departmentList" [value]="dep.name">
+                {{dep.id}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button type="submit">Search</button>
+          <button mat-raised-button type="reset" (click)="onReset()">Reset</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
 
-      <button mat-raised-button (click)="getReport()">Download report</button>
+
     <table mat-table [dataSource]="users">
       <ng-container matColumnDef="employeeNumber">
         <th mat-header-cell *matHeaderCellDef> Employee No. </th>
@@ -75,5 +103,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumnsMeals; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsMeals;"></tr>
     </table>
+  </div>
+
+  <div fxFlex *ngIf="showReservations">
+    <app-reservation></app-reservation>
   </div>
 </div>

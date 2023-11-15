@@ -22,4 +22,10 @@ export class FoodTrackerRestService {
   public getFoodPrice(): Observable<any> {
     return this.http.get<any>("http://0.0.0.0:8888/api/v1/track/price");
   }
+
+  public updateUserPersonalInfo(usr: FoodTrackerUser): Observable<any> {
+    let body = JSON.stringify(usr);
+    console.log(body);
+    return this.http.put<any>("http://0.0.0.0:8888/api/v1/department/user", usr);
+  }
 }

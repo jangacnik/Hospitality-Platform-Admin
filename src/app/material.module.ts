@@ -10,6 +10,7 @@ import {MatTable, MatTableModule} from "@angular/material/table";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -26,7 +27,8 @@ import {MatChipsModule} from "@angular/material/chips";
     MatTableModule,
     MatToolbarModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule
   ],
    exports: [
      MatCardModule,
@@ -39,7 +41,8 @@ import {MatChipsModule} from "@angular/material/chips";
      MatTableModule,
      MatToolbarModule,
      MatDialogModule,
-     MatChipsModule
+     MatChipsModule,
+     MatSelectModule
    ]
 })
 export class MaterialModule { }
