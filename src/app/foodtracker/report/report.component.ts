@@ -7,7 +7,7 @@ import {CsvExportService} from "../service/csv-export.service";
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css']
+  styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit{
   displayedColumnsMeals: string[] = ['employeeNumber', 'name', 'department', 'meals_reserved', 'meals_used', 'total'];

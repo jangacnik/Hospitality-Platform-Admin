@@ -8,7 +8,7 @@ import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
 @Component({
   selector: 'app-user-edit-dialog',
   templateUrl: './user-edit-dialog.component.html',
-  styleUrls: ['./user-edit-dialog.component.css']
+  styleUrls: ['./user-edit-dialog.component.scss']
 })
 export class UserEditDialogComponent implements OnInit{
   user: FoodTrackerUser | undefined;
