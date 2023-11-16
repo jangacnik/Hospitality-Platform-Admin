@@ -9,6 +9,7 @@ import {FlexModule} from "@angular/flex-layout";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 
 
@@ -18,7 +19,8 @@ import { ReservationComponent } from './reservation/reservation.component';
     ReportComponent,
     UserManagmentComponent,
     UserEditDialogComponent,
-    ReservationComponent
+    ReservationComponent,
+    EmployeesComponent
   ],
     imports: [
         CommonModule,

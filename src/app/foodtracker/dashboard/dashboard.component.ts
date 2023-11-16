@@ -10,65 +10,46 @@ import {CsvExportService} from "../service/csv-export.service";
 import {forkJoin} from "rxjs";
 import {DepartmentService} from "../service/department.service";
 import {DepartmentListItem} from "../model/DepartmentListItem";
+import {MonthlyMealInfo} from "../model/MonthlyMealInfo";
+import {ReservationService} from "../service/reservation.service";
+import {ReservationEntry} from "../model/ReservationEntry";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
 
-  searchForm = new FormGroup({
-    searchName: new FormControl('', []),
-    searchDepartment: new FormControl('', [])
-  })
 
-  displayedColumns: string[] = ['employeeNumber', 'name', 'department', 'options'];
-  displayedColumnsMeals: string[] = ['employeeNumber', 'name', 'department', 'meals', 'total'];
+
   showMeals = false;
   showEmployees = true;
   showReservations = false;
-  users: any;
-  entries: any;
-  entriesOld: any;
+  entries: MonthlyMealInfo[];
   employess: FoodTrackerUser[] = [];
-  employeesOld: FoodTrackerUser[] = [];
   departmentList: DepartmentListItem[] = undefined;
   price: number;
-    constructor(private foodTrackerRestService: FoodTrackerRestService, private dialog: MatDialog, private csvExport: CsvExportService, private departmentService: DepartmentService) {
-    }
-  ngOnInit(): void {
-      forkJoin([
-          this.foodTrackerRestService.getCurrentMonthTracking(),
-        this.foodTrackerRestService.getFoodPrice(),
-      ]
-      ).subscribe(r => {
-        let currentMonthTracking = r[0];
-        this.price = r[1];
-        this.entries = currentMonthTracking.entries;
-        this.users = [];
-        for (let key of Object.keys(this.entries)) {
-          // @ts-ignore
-          let t:any = this.entries[key];
-          // // @ts-ignore
-          // t['total'] = t.mealEntry.mealCount * priceObj.price;
-          // console.log(t);
-          // @ts-ignore
-          this.users.push(t);
-          console.log("PRIMER");
-          console.log(t);
-        }
-        this.entriesOld = this.entries;
+  reservations: ReservationEntry[];
+  constructor(private foodTrackerRestService: FoodTrackerRestService,
+              private departmentService: DepartmentService,
+              private reservationService: ReservationService) {
+  }
 
-        console.log(this.entries);
-      });
-    this.foodTrackerRestService.getAllUsers().subscribe(
-      (data: FoodTrackerUser[]) => {
-        this.employess = data;
-        this.employeesOld = data;
-        this.employess.sort((a,b) => +a.employeeNumber - +b.employeeNumber);
-      }
-    );
+  ngOnInit(): void {
+    forkJoin([
+        this.foodTrackerRestService.getCurrentMonthTracking(),
+        this.foodTrackerRestService.getFoodPrice(),
+        this.foodTrackerRestService.getAllUsers(),
+      this.reservationService.getCurrentReservations()
+      ]
+    ).subscribe(r => {
+      this.entries = r[0];
+      this.price = r[1];
+      this.employess = r[2];
+      this.reservations = r[3];
+    });
+
     this.departmentService.getDepartmentNames().then((data) => {
       this.departmentList = data;
     });
@@ -79,68 +60,31 @@ export class DashboardComponent implements OnInit{
     this.showEmployees = false;
     this.showMeals = true;
     this.showReservations = false;
-    this.clearForm();
   }
 
   employessSelected() {
     this.showEmployees = true;
     this.showMeals = false;
     this.showReservations = false;
-    this.clearForm();
   }
+
   reservationsSelected() {
-    this.showEmployees = true;
+    this.showEmployees = false;
     this.showMeals = false;
-    this.showReservations = false;
-    this.clearForm();
+    this.showReservations = true;
   }
 
-  clearForm() {
-      this.searchForm.reset();
-  }
-  onSearch() {
-      const name = this.searchForm.get("searchName")?.value;
-      const dep = this.searchForm.get("searchDepartment")?.value;
-      console.log(dep);
-          this.employess = this.employeesOld.filter((val) => {
-              return  name && (val.lastName+val.firstName).toLowerCase().includes(<string>name?.toLowerCase()) ||
-                dep && val.departments.includes(dep)
-            });
-        }
 
-  onSearchMeals() {
-    const name = this.searchForm.get("searchName")?.value;
-    const dep = this.searchForm.get("searchDepartment")?.value;
-    console.log(dep);
-    this.entries = this.entriesOld.filter((val) => {
-      return  name && (val.lastName+val.firstName).toLowerCase().includes(<string>name?.toLowerCase()) ||
-        dep && val.departments.includes(dep)
-    });
-    console.log(this.entries);
-  }
-  onReset() {
-      this.employess = this.employeesOld;
-  }
 
-  onUserEdit(user: FoodTrackerUser) {
-      console.log(user);
-      let dialogRef = this.dialog.open(UserEditDialogComponent, {
-        width: '500px',
-        height: '500px',
-        data: {
-          user: user
-        }
-      });
 
-  }
 
-  getReport() {
-      this.csvExport.downloadFile(this.users, "report");
-  }
 
-  itemTest() {
-      console.log(this.departmentList);
-  }
 
-  protected readonly undefined = undefined;
+
+
+
+
+
+
+
 }

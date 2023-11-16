@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ReservationEntry} from "../model/ReservationEntry";
 
 @Component({
   selector: 'app-reservation',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class ReservationComponent {
 
+  displayedColumns: string[] = ['employeeNumber', 'name', 'department',  'meals', "numberOfMeals"];
+  @Input() reservations: ReservationEntry[];
+
+  constructor() {
+  }
 }

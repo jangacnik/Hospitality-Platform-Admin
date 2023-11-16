@@ -23,6 +23,7 @@ import {
 import {NgIconsModule} from "@ng-icons/core";
 import {JwtInterceptor} from "./auth/interceptor/jwt.interceptor";
 import {FlexModule} from "@angular/flex-layout";
+import {CommonModule, DatePipe, NgOptimizedImage} from "@angular/common";
 
 const routes: Routes = [
   {   path: 'user',   component: ProfileComponent, canActivate: [loginActivateGuard]   },
@@ -52,10 +53,13 @@ const routes: Routes = [
     //http
     HttpClientModule,
     // modules
-    FoodTrackerModule
+    FoodTrackerModule,
+    CommonModule,
+    NgOptimizedImage
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

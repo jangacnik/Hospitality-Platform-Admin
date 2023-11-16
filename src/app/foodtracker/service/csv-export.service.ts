@@ -8,8 +8,8 @@ export class CsvExportService {
   constructor() { }
 
   downloadFile(data: any, filename='data') {
-    let csvData = this.ConvertToCSV(data, ['name', 'employeeNumber', 'meals', 'department', "total"]);
-    console.log(csvData)
+    let csvData = this.ConvertToCSV(data, ['Employee Number', 'Name',  'Department', 'Number of reserved meals', "Number of used meals", "Total price"]);
+    // console.log(csvData)
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
@@ -30,15 +30,16 @@ export class CsvExportService {
     for (let obj of objArray) {
       let temp = {};
       // @ts-ignore
-      temp['employeeNumber'] = obj.user.employeeNumber;
+      temp['Employee Number'] = obj.employeeNumber;
       // @ts-ignore
-      temp['name'] = obj.user.firstName + " " + obj.user.lastName;
+      temp['Name'] = obj.name;
       // @ts-ignore
-      temp['department'] = obj.user.departments.join(", ");
+      temp['Department'] = obj.department.join(", ");
       // @ts-ignore
-      temp['meals'] = obj.mealEntry.mealCount;
+      temp['Number of reserved meals'] = obj.mealCountReserved;
       // @ts-ignore
-      temp['total'] = obj.total;
+      temp['Number of used meals'] = obj.mealCountUsed;
+      temp['Total price'] = obj.mealTotalPrice;
       converted.push(temp);
     }
     // @ts-ignore
