@@ -34,4 +34,8 @@ export class FoodTrackerRestService {
     // console.log(body);
     return this.http.post<any>("http://0.0.0.0:8888/api/v1/department/user", usr);
   }
+
+  public deleteUser(employeeId: string): Observable<any> {
+    return this.http.delete<any>("http://0.0.0.0:8888/api/v1/department/user/"+employeeId);
+  }
 }

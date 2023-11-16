@@ -31,29 +31,32 @@ export class DashboardComponent implements OnInit {
   departmentList: DepartmentListItem[] = undefined;
   price: number;
   reservations: ReservationEntry[];
+  dataReady = false;
   constructor(private foodTrackerRestService: FoodTrackerRestService,
               private departmentService: DepartmentService,
               private reservationService: ReservationService) {
   }
 
   ngOnInit(): void {
+    this.fetchData(false);
+  }
+
+  fetchData(refreshDepartments: boolean) {
     forkJoin([
         this.foodTrackerRestService.getCurrentMonthTracking(),
         this.foodTrackerRestService.getFoodPrice(),
         this.foodTrackerRestService.getAllUsers(),
-      this.reservationService.getCurrentReservations()
+        this.reservationService.getCurrentReservations(),
+      this.departmentService.getDepartmentNames(refreshDepartments)
       ]
     ).subscribe(r => {
       this.entries = r[0];
       this.price = r[1];
       this.employess = r[2];
       this.reservations = r[3];
+      this.departmentList = r[4];
+      this.dataReady = true;
     });
-
-    this.departmentService.getDepartmentNames().then((data) => {
-      this.departmentList = data;
-    });
-
   }
 
   mealsSelected() {
@@ -74,6 +77,8 @@ export class DashboardComponent implements OnInit {
     this.showReservations = true;
   }
 
-
-  protected readonly undefined = undefined;
+  onRefresh() {
+    this.dataReady = false;
+    this.fetchData(true);
+  }
 }

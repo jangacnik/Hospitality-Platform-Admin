@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FoodTrackerRestService} from "../../service/food-tracker-rest.service";
 import {DepartmentListItem} from "../../model/DepartmentListItem";
 import {Roles} from "../../model/enum/roles";
+import {resolve} from "@angular/compiler-cli";
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -29,7 +30,7 @@ export class CreateUserDialogComponent implements OnInit{
   createUser() {
     this.foodtrackerService.createUser(this.createForm.value).subscribe({
       next: (v) => {
-        this.onclose()
+        this.dialogRef.close(true);
       },
       error: (e) => console.log(e)
     });

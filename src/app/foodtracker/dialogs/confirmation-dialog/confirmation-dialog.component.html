@@ -1,0 +1,8 @@
+<mat-card>
+  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card-content>{{msg}}</mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button style="color: #fff;background-color: #153961;" (click)="dialogRef.close(true)">Confirm</button>
+    <button mat-raised-button (click)="dialogRef.close(false)">Cancel</button>
+  </mat-card-actions>
+</mat-card>

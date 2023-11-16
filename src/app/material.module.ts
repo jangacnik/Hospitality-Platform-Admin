@@ -11,6 +11,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatSelectModule} from "@angular/material/select";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -28,7 +29,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatToolbarModule,
     MatDialogModule,
     MatChipsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
    exports: [
      MatCardModule,
@@ -42,7 +44,8 @@ import {MatSelectModule} from "@angular/material/select";
      MatToolbarModule,
      MatDialogModule,
      MatChipsModule,
-     MatSelectModule
+     MatSelectModule,
+     MatProgressSpinnerModule
    ]
 })
 export class MaterialModule { }

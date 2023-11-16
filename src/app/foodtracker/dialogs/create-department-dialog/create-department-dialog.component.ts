@@ -22,7 +22,7 @@ export class CreateDepartmentDialogComponent {
   createDepartment() {
     this.departmentService.createDepartment(this.createForm.value).subscribe({
       next: (v) => {
-        this.onclose()
+        this.dialogRef.close(true);
       },
       error: (e) => console.log(e)
     });

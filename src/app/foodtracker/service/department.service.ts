@@ -18,11 +18,9 @@ export class DepartmentService {
   private _departmentsList: DepartmentListItem[] = undefined
   constructor(private http: HttpClient) { }
 
-  public getDepartmentNames(): Promise<DepartmentListItem[]> {
+  public getDepartmentNames(refreshDepartments: boolean): Promise<DepartmentListItem[]> {
     return new Promise((resolve, reject) => {
-      if(this._departmentsList != undefined) {
-        resolve(this._departmentsList);
-      } else {
+      if(this._departmentsList == undefined || refreshDepartments) {
         this.getDepartmentsRequest().subscribe((data) =>
         {
           this._departmentsList = [];
@@ -31,6 +29,9 @@ export class DepartmentService {
           }
           resolve(this._departmentsList)
         });
+      } else {
+
+        resolve(this._departmentsList);
       }
     });
   }

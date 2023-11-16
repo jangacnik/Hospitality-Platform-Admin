@@ -12,6 +12,7 @@ import { ReservationComponent } from './reservation/reservation.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { CreateUserDialogComponent } from './dialogs/create-user-dialog/create-user-dialog.component';
 import { CreateDepartmentDialogComponent } from './dialogs/create-department-dialog/create-department-dialog.component';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -24,7 +25,8 @@ import { CreateDepartmentDialogComponent } from './dialogs/create-department-dia
     ReservationComponent,
     EmployeesComponent,
     CreateUserDialogComponent,
-    CreateDepartmentDialogComponent
+    CreateDepartmentDialogComponent,
+    ConfirmationDialogComponent
   ],
     imports: [
         CommonModule,

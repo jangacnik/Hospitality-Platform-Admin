@@ -1,11 +1,13 @@
-<mat-toolbar fxLayoutGap="20px" fxLayoutAlign="center center">
-  <button mat-raised-button (click)="employessSelected()">Employees</button>
-  <button mat-raised-button (click)="mealsSelected()">Meals</button>
-  <button mat-raised-button (click)="reservationsSelected()">Reservations</button>
+
+<ng-container *ngIf="dataReady">
+  <mat-toolbar fxLayoutGap="20px" fxLayoutAlign="center center">
+    <button mat-raised-button (click)="employessSelected()">Employees</button>
+    <button mat-raised-button (click)="mealsSelected()">Meals</button>
+    <button mat-raised-button (click)="reservationsSelected()">Reservations</button>
   </mat-toolbar>
-<div>
+  <div>
     <div  style="margin: 10px; overflow: auto" *ngIf="showEmployees">
-      <app-employees  *ngIf="employess" [employees]="employess" [departmentList]="departmentList">
+      <app-employees (refresh)="onRefresh()"  *ngIf="employess" [employees]="employess" [departmentList]="departmentList">
       </app-employees>
     </div>
     <div  style="margin: 10px; overflow: auto"  *ngIf="showMeals" >
@@ -14,4 +16,8 @@
     <div   style="margin: 10px; overflow: auto" *ngIf="showReservations">
       <app-reservation *ngIf="reservations" [reservations]="reservations" ></app-reservation>
     </div>
-</div>
+  </div>
+</ng-container>
+<ng-container *ngIf="!dataReady">
+  <mat-spinner></mat-spinner>
+</ng-container>

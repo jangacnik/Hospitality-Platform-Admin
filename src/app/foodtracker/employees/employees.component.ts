@@ -2,10 +2,10 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   HostListener,
   Input,
-  OnInit,
+  OnInit, Output,
   ViewChild
 } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
@@ -15,6 +15,9 @@ import {UserEditDialogComponent} from "../dialogs/user-edit-dialog/user-edit-dia
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "../dialogs/create-user-dialog/create-user-dialog.component";
 import {CreateDepartmentDialogComponent} from "../dialogs/create-department-dialog/create-department-dialog.component";
+import {ConfirmationDialogComponent} from "../dialogs/confirmation-dialog/confirmation-dialog.component";
+import {data} from "autoprefixer";
+import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
 
 @Component({
   selector: 'app-employees',
@@ -26,7 +29,7 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
     searchName: new FormControl('', []),
     searchDepartment: new FormControl('', [])
   });
-
+  @Output() refresh: EventEmitter<any> = new EventEmitter();
   @Input() employees: FoodTrackerUser[] = [];
   @Input() departmentList: DepartmentListItem[];
   employeesOld: FoodTrackerUser[] = [];
@@ -34,7 +37,7 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
   self: ElementRef;
   parentH: number;
   displayedColumns: string[] = ['employeeNumber', 'name', 'department', 'options'];
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private foodtrackerService: FoodTrackerRestService) {
   }
   clearForm() {
     this.searchForm.reset();
@@ -95,11 +98,46 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
         departmentList: this.departmentList
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.refresh.emit();
+      }
+      dialogRef = null;
+    });
   }
 
   createNewDepartment(): void {
     let dialogRef = this.dialog.open(CreateDepartmentDialogComponent, {
       width: '500px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.refresh.emit();
+      }
+      dialogRef = null;
+    });
+  }
+
+
+  deleteUser(user:FoodTrackerUser): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data:{title: "Delete User: " +user.firstName + " " + user.lastName, msg: "Are you sure you want to delete the user with employee number: "+user.employeeNumber}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.foodtrackerService.deleteUser(user.employeeNumber).subscribe(
+          {
+            next: (v) => {
+              this.refresh.emit();
+            },
+            error: (e) => {
+              console.log(e);
+            }
+          }
+        );
+      }
+     dialogRef = null;
     });
   }
 }

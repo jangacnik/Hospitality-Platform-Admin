@@ -44,8 +44,11 @@
       <ng-container matColumnDef="options">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="onUserEdit(element)">
+          <button mat-icon-button style="color: turquoise" (click)="onUserEdit(element)">
             <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button style="color: red" (click)="deleteUser(element)">
+            <mat-icon>delete</mat-icon>
           </button>
         </td>
       </ng-container>
