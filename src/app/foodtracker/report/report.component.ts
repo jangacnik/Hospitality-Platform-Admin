@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {MonthlyMealInfo} from "../model/MonthlyMealInfo";
 import {DepartmentListItem} from "../model/DepartmentListItem";
@@ -9,18 +9,30 @@ import {CsvExportService} from "../service/csv-export.service";
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss']
 })
-export class ReportComponent implements OnInit{
+export class ReportComponent implements OnInit, AfterViewChecked{
   displayedColumnsMeals: string[] = ['employeeNumber', 'name', 'department', 'meals_reserved', 'meals_used', 'total'];
   searchForm = new FormGroup({
     searchName: new FormControl('', []),
     searchDepartment: new FormControl('', [])
-  })
+  });
 
   @Input() entries: MonthlyMealInfo[];
   @Input() price: number;
   @Input() departmentList: DepartmentListItem[];
   entriesOld: MonthlyMealInfo[];
+
+  @ViewChild("self")
+  self: ElementRef;
+  parentH: number;
   constructor(private csvExport: CsvExportService) {
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
+  }
+  ngAfterViewChecked() {
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
   }
 
   onSearchMeals() {
@@ -51,4 +63,5 @@ export class ReportComponent implements OnInit{
   ngOnInit(): void {
     this.entriesOld = this.entries;
   }
+
 }

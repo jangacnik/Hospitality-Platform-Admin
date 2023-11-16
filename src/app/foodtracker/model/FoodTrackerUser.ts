@@ -8,13 +8,15 @@ export class FoodTrackerUser {
   private _oldEmail: string;
   employeeNumber: string;
   departments: string[];
+  roles: string[];
 
-  constructor(lastName: string, firstName: string, email: string, employeeNumber: string, departments: string[], oldEmail: string) {
+  constructor(lastName: string, firstName: string, email: string, employeeNumber: string, departments: string[],roles: string[], oldEmail: string) {
     this.lastName = lastName;
     this.firstName = firstName;
     this.email = email;
     this.employeeNumber = employeeNumber;
     this.departments = departments;
+    this.roles = roles;
     this._oldEmail = oldEmail;
   }
 

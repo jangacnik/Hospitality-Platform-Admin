@@ -1,16 +1,27 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {FoodTrackerUser} from "../model/FoodTrackerUser";
 import {DepartmentListItem} from "../model/DepartmentListItem";
-import {UserEditDialogComponent} from "../user-edit-dialog/user-edit-dialog.component";
+import {UserEditDialogComponent} from "../dialogs/user-edit-dialog/user-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {CreateUserDialogComponent} from "../dialogs/create-user-dialog/create-user-dialog.component";
+import {CreateDepartmentDialogComponent} from "../dialogs/create-department-dialog/create-department-dialog.component";
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']
 })
-export class EmployeesComponent implements OnInit{
+export class EmployeesComponent implements OnInit, AfterViewChecked{
   searchForm = new FormGroup({
     searchName: new FormControl('', []),
     searchDepartment: new FormControl('', [])
@@ -19,18 +30,29 @@ export class EmployeesComponent implements OnInit{
   @Input() employees: FoodTrackerUser[] = [];
   @Input() departmentList: DepartmentListItem[];
   employeesOld: FoodTrackerUser[] = [];
-
+  @ViewChild("self")
+  self: ElementRef;
+  parentH: number;
   displayedColumns: string[] = ['employeeNumber', 'name', 'department', 'options'];
   constructor(private dialog: MatDialog) {
   }
   clearForm() {
     this.searchForm.reset();
   }
-
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
+  }
+  ngAfterViewChecked() {
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
+  }
   ngOnInit(): void {
     this.employeesOld = this.employees;
   }
   onSearch() {
+    if(this.employeesOld.length == 0) {
+      this.employeesOld = this.employees;
+    }
     const name = this.searchForm.get("searchName").value;
     const dep = this.searchForm.get("searchDepartment").value;
     if (dep && name) {
@@ -58,11 +80,26 @@ export class EmployeesComponent implements OnInit{
     console.log(user);
     let dialogRef = this.dialog.open(UserEditDialogComponent, {
       width: '500px',
-      height: '500px',
       data: {
-        user: user
+        user: user,
+        departmentList: this.departmentList
       }
     });
 
+  }
+
+  createNewUser(): void {
+    let dialogRef = this.dialog.open(CreateUserDialogComponent, {
+      width: '500px',
+      data: {
+        departmentList: this.departmentList
+      }
+    });
+  }
+
+  createNewDepartment(): void {
+    let dialogRef = this.dialog.open(CreateDepartmentDialogComponent, {
+      width: '500px'
+    });
   }
 }

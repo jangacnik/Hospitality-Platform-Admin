@@ -1,59 +1,59 @@
-<mat-card>
-  <mat-card-content>
-    <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm" (ngSubmit)="onSearchMeals()">
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput type="text" formControlName="searchName">
-      </mat-form-field>
-      <mat-form-field *ngIf="departmentList !== undefined">
-        <mat-label>Department</mat-label>
-        <mat-select formControlName="searchDepartment">
-          <mat-option *ngFor="let dep of departmentList" [value]="dep.name">
-            {{dep.id}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-raised-button type="submit">Search</button>
-      <button mat-raised-button type="reset" (click)="onResetMeals()">Reset</button>
-    </form>
-    <span fxFlex></span>
-    <button mat-raised-button style="background-color: aquamarine" (click)="getReport()">Download report</button>
-
-  </mat-card-content>
-</mat-card>
-
-
-<table mat-table [dataSource]="entries">
-  <ng-container matColumnDef="employeeNumber">
-    <th mat-header-cell *matHeaderCellDef> Employee No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.employeeNumber}} </td>
-  </ng-container>
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="department">
-    <th mat-header-cell *matHeaderCellDef> Departments </th>
-    <td mat-cell *matCellDef="let element"> {{element.department.join(", ")}} </td>
-  </ng-container>
-  <ng-container matColumnDef="meals_used">
-    <th mat-header-cell *matHeaderCellDef>Number of meals used</th>
-    <td mat-cell *matCellDef="let element">
-      {{element.mealCountUsed}}
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="meals_reserved">
-    <th mat-header-cell *matHeaderCellDef>Number of reserved meals</th>
-    <td mat-cell *matCellDef="let element">
-      {{element.mealCountReserved}}
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="total">
-    <th mat-header-cell *matHeaderCellDef> Departments </th>
-    <td mat-cell *matCellDef="let element"> {{element.mealTotalPrice | currency:'EUR'}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumnsMeals; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumnsMeals;"></tr>
-</table>
+<div fxFlex fxLayout="column" style="overflow: hidden">
+  <mat-card>
+    <mat-card-content>
+      <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm"
+            (ngSubmit)="onSearchMeals()">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="searchName">
+        </mat-form-field>
+        <mat-form-field *ngIf="departmentList !== undefined">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="searchDepartment">
+            <mat-option *ngFor="let dep of departmentList" [value]="dep.name">
+              {{dep.id}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button type="submit">Search</button>
+        <button mat-raised-button type="reset" (click)="onResetMeals()">Reset</button>
+      </form>
+      <span fxFlex></span>
+      <button mat-raised-button style="background-color: aquamarine" (click)="getReport()">Download report</button>
+    </mat-card-content>
+  </mat-card>
+  <div #self class="example-container" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
+    <table mat-table  [dataSource]="entries">
+      <ng-container matColumnDef="employeeNumber">
+        <th mat-header-cell *matHeaderCellDef> Employee No.</th>
+        <td mat-cell *matCellDef="let element"> {{element.employeeNumber}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef> Departments</th>
+        <td mat-cell *matCellDef="let element"> {{element.department.join(", ")}} </td>
+      </ng-container>
+      <ng-container matColumnDef="meals_used">
+        <th mat-header-cell *matHeaderCellDef>Number of meals used</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.mealCountUsed}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="meals_reserved">
+        <th mat-header-cell *matHeaderCellDef>Number of reserved meals</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.mealCountReserved}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Departments</th>
+        <td mat-cell *matCellDef="let element"> {{element.mealTotalPrice | currency:'EUR'}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsMeals; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsMeals;"></tr>
+    </table>
+  </div>
+</div>

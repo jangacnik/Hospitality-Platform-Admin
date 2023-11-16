@@ -38,4 +38,8 @@ export class DepartmentService {
   private getDepartmentsRequest() {
     return this.http.get<any>(this.baseUrl+"/all/names");
   }
+
+  public createDepartment( departmentName: any) {
+    return this.http.post<any>(this.baseUrl, departmentName);
+  }
 }

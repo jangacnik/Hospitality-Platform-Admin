@@ -5,7 +5,7 @@ import {FoodTrackerUserWithMealEntry} from "../model/FoodTrackerUserWithMealEntr
 import {FoodTrackerUser} from "../model/FoodTrackerUser";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
-import {UserEditDialogComponent} from "../user-edit-dialog/user-edit-dialog.component";
+import {UserEditDialogComponent} from "../dialogs/user-edit-dialog/user-edit-dialog.component";
 import {CsvExportService} from "../service/csv-export.service";
 import {forkJoin} from "rxjs";
 import {DepartmentService} from "../service/department.service";
@@ -75,16 +75,5 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+  protected readonly undefined = undefined;
 }

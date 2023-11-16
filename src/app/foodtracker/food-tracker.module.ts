@@ -7,9 +7,11 @@ import {MaterialModule} from "../material.module";
 import {NgIcon} from "@ng-icons/core";
 import {FlexModule} from "@angular/flex-layout";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
+import { UserEditDialogComponent } from './dialogs/user-edit-dialog/user-edit-dialog.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { CreateUserDialogComponent } from './dialogs/create-user-dialog/create-user-dialog.component';
+import { CreateDepartmentDialogComponent } from './dialogs/create-department-dialog/create-department-dialog.component';
 
 
 
@@ -20,7 +22,9 @@ import { EmployeesComponent } from './employees/employees.component';
     UserManagmentComponent,
     UserEditDialogComponent,
     ReservationComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    CreateUserDialogComponent,
+    CreateDepartmentDialogComponent
   ],
     imports: [
         CommonModule,

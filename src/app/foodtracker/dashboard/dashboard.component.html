@@ -4,15 +4,14 @@
   <button mat-raised-button (click)="reservationsSelected()">Reservations</button>
   </mat-toolbar>
 <div>
-  <div fxFlex style="margin: 10px" *ngIf="showEmployees">
-    <app-employees  *ngIf="employess" [employees]="employess" [departmentList]="departmentList">
-
-    </app-employees>
-  </div>
-  <div fxFlex *ngIf="showMeals" style="margin: 10px">
-  <app-report *ngIf="entries" [entries]="entries" [departmentList]="departmentList" [price]="price"></app-report>
-  </div>
-  <div fxFlex *ngIf="showReservations">
-    <app-reservation *ngIf="reservations" [reservations]="reservations" ></app-reservation>
-  </div>
+    <div  style="margin: 10px; overflow: auto" *ngIf="showEmployees">
+      <app-employees  *ngIf="employess" [employees]="employess" [departmentList]="departmentList">
+      </app-employees>
+    </div>
+    <div  style="margin: 10px; overflow: auto"  *ngIf="showMeals" >
+      <app-report *ngIf="entries" [entries]="entries" [departmentList]="departmentList" [price]="price"></app-report>
+    </div>
+    <div   style="margin: 10px; overflow: auto" *ngIf="showReservations">
+      <app-reservation *ngIf="reservations" [reservations]="reservations" ></app-reservation>
+    </div>
 </div>
