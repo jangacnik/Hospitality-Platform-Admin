@@ -3,6 +3,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {MonthlyMealInfo} from "../model/MonthlyMealInfo";
 import {DepartmentListItem} from "../model/DepartmentListItem";
 import {CsvExportService} from "../service/csv-export.service";
+import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
+import {data} from "autoprefixer";
 
 @Component({
   selector: 'app-report',
@@ -16,7 +18,7 @@ export class ReportComponent implements OnInit, AfterViewChecked{
     searchDepartment: new FormControl('', [])
   });
 
-  @Input() entries: MonthlyMealInfo[];
+  entries: MonthlyMealInfo[];
   @Input() price: number;
   @Input() departmentList: DepartmentListItem[];
   entriesOld: MonthlyMealInfo[];
@@ -24,9 +26,9 @@ export class ReportComponent implements OnInit, AfterViewChecked{
   @ViewChild("self")
   self: ElementRef;
   parentH: number;
-  constructor(private csvExport: CsvExportService) {
+  constructor(private csvExport: CsvExportService, private foodService: FoodTrackerRestService) {
   }
-
+  dataReady = false;
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
@@ -61,7 +63,21 @@ export class ReportComponent implements OnInit, AfterViewChecked{
   }
 
   ngOnInit(): void {
-    this.entriesOld = this.entries;
+    this.getReportData();
   }
 
+  getReportData() {
+    this.foodService.getCurrentMonthTracking().subscribe((data) => {
+      this.entries = data;
+      this.entriesOld = data;
+      this.dataReady = true;
+    });
+  }
+
+  refreshData() {
+    this.dataReady = false;
+    this.getReportData();
+  }
+
+  protected readonly data = data;
 }

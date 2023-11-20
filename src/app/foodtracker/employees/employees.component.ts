@@ -30,7 +30,7 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
     searchDepartment: new FormControl('', [])
   });
   @Output() refresh: EventEmitter<any> = new EventEmitter();
-  @Input() employees: FoodTrackerUser[] = [];
+  employees: FoodTrackerUser[] = [];
   @Input() departmentList: DepartmentListItem[];
   employeesOld: FoodTrackerUser[] = [];
   @ViewChild("self")
@@ -50,8 +50,10 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
     this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
   }
   ngOnInit(): void {
-    this.employeesOld = this.employees;
+    this.getUserData();
   }
+
+  dataReady = false;
   onSearch() {
     if(this.employeesOld.length == 0) {
       this.employeesOld = this.employees;
@@ -139,5 +141,18 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
       }
      dialogRef = null;
     });
+  }
+
+  getUserData() {
+    this.foodtrackerService.getAllUsers().subscribe((data) => {
+      this.employees = data;
+      this.employeesOld = data;
+      this.dataReady = true;
+    });
+  }
+
+  refreshData() {
+    this.dataReady = false;
+    this.getUserData();
   }
 }

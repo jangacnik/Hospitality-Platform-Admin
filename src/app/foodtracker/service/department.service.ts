@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {delay, Observable, repeat, retry, retryWhen, timer} from "rxjs";
 import {DepartmentListItem} from "../model/DepartmentListItem";
+import {enviroment} from "../../../enviroments/enviroment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,6 @@ export class DepartmentService {
   set departmentsList(value: DepartmentListItem[]) {
     this._departmentsList = value;
   }
-  private baseUrl = "http://0.0.0.0:8888/api/v1/department";
   private _departmentsList: DepartmentListItem[] = undefined
   constructor(private http: HttpClient) { }
 
@@ -37,10 +37,10 @@ export class DepartmentService {
   }
 
   private getDepartmentsRequest() {
-    return this.http.get<any>(this.baseUrl+"/all/names");
+    return this.http.get<any>(enviroment.baseUrlTest + "department/all/names");
   }
 
   public createDepartment( departmentName: any) {
-    return this.http.post<any>(this.baseUrl, departmentName);
+    return this.http.post<any>(enviroment.baseUrlTest + "department", departmentName);
   }
 }

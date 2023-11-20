@@ -4,6 +4,7 @@ import {FormControl, ɵFormGroupRawValue, ɵGetProperty, ɵTypedOrUntyped} from 
 import {Observable} from "rxjs";
 import {LoginResponse} from "../model/LoginResponse";
 import {Route, Router} from "@angular/router";
+import {enviroment} from "../../../enviroments/enviroment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) { }
 
   public login(email: String, password: String): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>("http://0.0.0.0:8888/api/v1/auth/signinadmin", {email: email, password: password});
+    return this.http.post<LoginResponse>(enviroment.baseUrlTest+ "auth/signinadmin", {email: email, password: password});
   }
 
   public logout() {

@@ -1,5 +1,9 @@
 <div fxFlex fxLayout="column" style="overflow: hidden">
-  <div #self class="example-container" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
+  <div fxLayout="row">
+    <h1 fxFlex>Total number of reserved meals: {{reservationCount}}</h1>
+    <h1 fxFlex>Reservations for: {{reservations[0].reservationDate | date}}</h1>
+  </div>
+  <div *ngIf="dataReady" #self class="example-container" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
 <table mat-table  [dataSource]="reservations">
   <ng-container matColumnDef="employeeNumber">
     <th mat-header-cell *matHeaderCellDef> Employee No. </th>
@@ -25,5 +29,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
   </div>
+
+  <mat-spinner *ngIf="!dataReady"  style="margin: 0 auto" ></mat-spinner>
 </div>

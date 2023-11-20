@@ -1,23 +1,20 @@
 
-<ng-container *ngIf="dataReady">
+<ng-container>
   <mat-toolbar fxLayoutGap="20px" fxLayoutAlign="center center">
-    <button mat-raised-button (click)="employessSelected()">Employees</button>
-    <button mat-raised-button (click)="mealsSelected()">Meals</button>
-    <button mat-raised-button (click)="reservationsSelected()">Reservations</button>
+    <button mat-button [disabled]="showEmployees" (click)="employessSelected()">Employees</button>
+    <button mat-button [disabled]="showMeals" (click)="mealsSelected()">Meals</button>
+    <button mat-button [disabled]="showReservations" (click)="reservationsSelected()">Reservations</button>
   </mat-toolbar>
-  <div>
+  <div class="dashboard-body">
     <div  style="margin: 10px; overflow: auto" *ngIf="showEmployees">
-      <app-employees (refresh)="onRefresh()"  *ngIf="employess" [employees]="employess" [departmentList]="departmentList">
+      <app-employees (refresh)="onRefresh()" [departmentList]="departmentList">
       </app-employees>
     </div>
     <div  style="margin: 10px; overflow: auto"  *ngIf="showMeals" >
-      <app-report *ngIf="entries" [entries]="entries" [departmentList]="departmentList" [price]="price"></app-report>
+      <app-report  [departmentList]="departmentList" [price]="price"></app-report>
     </div>
     <div   style="margin: 10px; overflow: auto" *ngIf="showReservations">
-      <app-reservation *ngIf="reservations" [reservations]="reservations" ></app-reservation>
+      <app-reservation  ></app-reservation>
     </div>
   </div>
-</ng-container>
-<ng-container *ngIf="!dataReady">
-  <mat-spinner></mat-spinner>
 </ng-container>

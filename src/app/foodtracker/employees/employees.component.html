@@ -16,19 +16,26 @@
           </mat-select>
         </mat-form-field>
         <div fxLayout="row" fxLayoutGap="20px">
-        <button fxFlex mat-raised-button type="submit">Search</button>
-        <button fxFlex mat-raised-button type="reset" (click)="onReset()">Reset</button>
+          <button fxFlex mat-raised-button type="submit">Search</button>
+          <button fxFlex mat-raised-button type="reset" (click)="onReset()">Reset</button>
         </div>
       </form>
       <span fxFlex></span>
       <div fxLayout="row" fxLayoutGap="20px">
-        <button mat-raised-button style="background-color: aquamarine" (click)="createNewUser()">Add new user</button>
-        <button mat-raised-button style="background-color: cyan" (click)="createNewDepartment()">Add new department</button>
+        <button mat-raised-button class="create-user-btn" (click)="createNewUser()">
+          <mat-icon>person</mat-icon>
+          Add new user
+        </button>
+        <button mat-raised-button class="create-dep-btn" (click)="createNewDepartment()">
+          <mat-icon>badge</mat-icon>
+          Add new department
+        </button>
       </div>
     </mat-card-content>
   </mat-card>
-  <div #self class="example-container" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
-    <table mat-table  [dataSource]="employees">
+  <div *ngIf="dataReady" #self class="example-container"
+       [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
+    <table mat-table [dataSource]="employees">
       <ng-container matColumnDef="employeeNumber">
         <th mat-header-cell *matHeaderCellDef> Employee No.</th>
         <td mat-cell *matCellDef="let element"> {{element.employeeNumber}} </td>
@@ -44,10 +51,10 @@
       <ng-container matColumnDef="options">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button style="color: turquoise" (click)="onUserEdit(element)">
+          <button mat-icon-button (click)="onUserEdit(element)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button style="color: red" (click)="deleteUser(element)">
+          <button mat-icon-button style="color: indianred" (click)="deleteUser(element)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -57,4 +64,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
+  <mat-spinner style="margin: 0 auto" *ngIf="!dataReady"></mat-spinner>
 </div>
+

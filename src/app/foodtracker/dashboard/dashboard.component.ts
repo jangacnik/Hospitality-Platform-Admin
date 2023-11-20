@@ -7,7 +7,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {UserEditDialogComponent} from "../dialogs/user-edit-dialog/user-edit-dialog.component";
 import {CsvExportService} from "../service/csv-export.service";
-import {forkJoin} from "rxjs";
+import {delay, first, forkJoin, merge, repeat, retry, timer} from "rxjs";
 import {DepartmentService} from "../service/department.service";
 import {DepartmentListItem} from "../model/DepartmentListItem";
 import {MonthlyMealInfo} from "../model/MonthlyMealInfo";
@@ -26,12 +26,8 @@ export class DashboardComponent implements OnInit {
   showMeals = false;
   showEmployees = true;
   showReservations = false;
-  entries: MonthlyMealInfo[];
-  employess: FoodTrackerUser[] = [];
   departmentList: DepartmentListItem[] = undefined;
   price: number;
-  reservations: ReservationEntry[];
-  dataReady = false;
   constructor(private foodTrackerRestService: FoodTrackerRestService,
               private departmentService: DepartmentService,
               private reservationService: ReservationService) {
@@ -42,21 +38,11 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchData(refreshDepartments: boolean) {
-    forkJoin([
-        this.foodTrackerRestService.getCurrentMonthTracking(),
-        this.foodTrackerRestService.getFoodPrice(),
-        this.foodTrackerRestService.getAllUsers(),
-        this.reservationService.getCurrentReservations(),
-      this.departmentService.getDepartmentNames(refreshDepartments)
-      ]
-    ).subscribe(r => {
-      this.entries = r[0];
-      this.price = r[1];
-      this.employess = r[2];
-      this.reservations = r[3];
-      this.departmentList = r[4];
-      this.dataReady = true;
-    });
+
+    this.departmentService.getDepartmentNames(refreshDepartments).then((data) => this.departmentList = data);
+
+    this.foodTrackerRestService.getFoodPrice().subscribe((price) => this.price = price);
+
   }
 
   mealsSelected() {
@@ -78,7 +64,6 @@ export class DashboardComponent implements OnInit {
   }
 
   onRefresh() {
-    this.dataReady = false;
     this.fetchData(true);
   }
 }

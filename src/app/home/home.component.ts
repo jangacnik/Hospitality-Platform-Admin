@@ -13,4 +13,6 @@ export class HomeComponent {
   onFoodTrackerClicked() {
     this.router.navigate(['food'])
   }
+
+
 }
