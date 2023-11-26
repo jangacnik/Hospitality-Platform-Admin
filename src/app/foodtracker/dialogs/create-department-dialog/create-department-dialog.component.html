@@ -3,14 +3,14 @@
     <mat-card-title>Create new department</mat-card-title>
   </mat-card-header>
   <mat-card-content style="padding: 15px">
-    <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="column" [formGroup]="createForm"
-          (ngSubmit)="createDepartment()">
+    <form (ngSubmit)="createDepartment()" [formGroup]="createForm" fxLayout="column" fxLayoutAlign="center center"
+          fxLayoutGap="15px">
 
       <mat-form-field fxFlex style="width: 100%">
         <mat-label>Department Name</mat-label>
-        <input matInput type="text" formControlName="departmentName">
+        <input formControlName="departmentName" matInput type="text">
       </mat-form-field>
-      <button mat-raised-button type="submit" style="width: 50%">Create</button>
+      <button mat-raised-button style="width: 50%" type="submit">Create</button>
     </form>
   </mat-card-content>
 </mat-card>

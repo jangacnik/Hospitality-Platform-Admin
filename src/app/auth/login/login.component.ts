@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../service/authentication.service";
 import {Router} from "@angular/router";
@@ -10,16 +10,16 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthenticationService, private router: Router) {
-    if(authService.isLoggedIn()) {
-      router.navigate(['home']);
-    }
-  }
-
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required])
   });
+
+  constructor(private authService: AuthenticationService, private router: Router) {
+    if (authService.isLoggedIn()) {
+      router.navigate(['home']);
+    }
+  }
 
   onSubmit() {
     const email = this.loginForm.get('email')?.value;

@@ -1,11 +1,11 @@
 <div fxFlex fxLayout="column" style="overflow: hidden">
   <mat-card>
     <mat-card-content>
-      <form fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm"
-            (ngSubmit)="onSearchMeals()">
+      <form (ngSubmit)="onSearchMeals()" [formGroup]="searchForm" fxLayout="row" fxLayoutAlign="center center"
+            fxLayoutGap="15px">
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput type="text" formControlName="searchName">
+          <input formControlName="searchName" matInput type="text">
         </mat-form-field>
         <mat-form-field *ngIf="departmentList !== undefined">
           <mat-label>Department</mat-label>
@@ -16,51 +16,56 @@
           </mat-select>
         </mat-form-field>
         <button mat-raised-button type="submit">Search</button>
-        <button mat-raised-button type="reset" (click)="onResetMeals()">Reset</button>
+        <button (click)="onResetMeals()" mat-raised-button type="reset">Reset</button>
       </form>
       <span fxFlex></span>
-      <button mat-icon-button (click)="refreshData()"><mat-icon>refresh</mat-icon></button>
+      <button (click)="refreshData()" [matTooltip]="'Update meal list'" mat-icon-button>
+        <mat-icon>refresh</mat-icon>
+      </button>
 
-      <button mat-raised-button style="background-color: aquamarine" (click)="getReport()">Download report</button>
+      <button (click)="getReport()" mat-raised-button style="background-color: aquamarine">Download report</button>
     </mat-card-content>
   </mat-card>
-  <div *ngIf="dataReady" #self class="example-container" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
-    <table  mat-table  [dataSource]="entries">
+  <div #self *ngIf="dataReady" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}"
+       class="example-container">
+    <table *ngIf="!noReportsAvailable" [dataSource]="entries" mat-table>
       <ng-container matColumnDef="employeeNumber">
-        <th mat-header-cell *matHeaderCellDef> Employee No.</th>
-        <td mat-cell *matCellDef="let element"> {{element.employeeNumber}} </td>
+        <th *matHeaderCellDef mat-header-cell> Employee No.</th>
+        <td *matCellDef="let element" mat-cell> {{element.employeeNumber}} </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <th *matHeaderCellDef mat-header-cell> Name</th>
+        <td *matCellDef="let element" mat-cell> {{element.name}} </td>
       </ng-container>
       <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef> Departments</th>
-        <td mat-cell *matCellDef="let element"> {{element.department.join(", ")}} </td>
+        <th *matHeaderCellDef mat-header-cell> Departments</th>
+        <td *matCellDef="let element" mat-cell> {{element.department.join(", ")}} </td>
       </ng-container>
       <ng-container matColumnDef="meals_used">
-        <th mat-header-cell *matHeaderCellDef>Number of meals used</th>
-        <td mat-cell *matCellDef="let element">
+        <th *matHeaderCellDef mat-header-cell>Number of meals used</th>
+        <td *matCellDef="let element" mat-cell>
           {{element.mealCountUsed}}
         </td>
       </ng-container>
       <ng-container matColumnDef="meals_reserved">
-        <th mat-header-cell *matHeaderCellDef>Number of reserved meals</th>
-        <td mat-cell *matCellDef="let element">
+        <th *matHeaderCellDef mat-header-cell>Number of reserved meals</th>
+        <td *matCellDef="let element" mat-cell>
           {{element.mealCountReserved}}
         </td>
       </ng-container>
       <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Departments</th>
-        <td mat-cell *matCellDef="let element"> {{element.mealTotalPrice | currency:"NOK":"symbol-narrow"}} </td>
+        <th *matHeaderCellDef mat-header-cell> Departments</th>
+        <td *matCellDef="let element" mat-cell> {{element.mealTotalPrice | currency:"NOK":"symbol-narrow"}} </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsMeals; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsMeals;"></tr>
+      <tr *matHeaderRowDef="displayedColumnsMeals; sticky: true" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumnsMeals;" mat-row></tr>
     </table>
-
+    <mat-label *ngIf="noReportsAvailable" fxFlex style="margin: 15px auto; text-align: center; font-size: xx-large;">No
+      Recorded meals available for this month
+    </mat-label>
   </div>
 
 
-  <mat-spinner style="margin: 0 auto"  *ngIf="!dataReady"></mat-spinner>
+  <mat-spinner *ngIf="!dataReady" style="margin: 0 auto"></mat-spinner>
 </div>
 

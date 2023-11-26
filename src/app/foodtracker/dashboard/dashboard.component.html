@@ -1,20 +1,19 @@
-
 <ng-container>
-  <mat-toolbar fxLayoutGap="20px" fxLayoutAlign="center center">
-    <button mat-button [disabled]="showEmployees" (click)="employessSelected()">Employees</button>
-    <button mat-button [disabled]="showMeals" (click)="mealsSelected()">Meals</button>
-    <button mat-button [disabled]="showReservations" (click)="reservationsSelected()">Reservations</button>
+  <mat-toolbar fxLayoutAlign="center center" fxLayoutGap="20px">
+    <button (click)="employessSelected()" [disabled]="showEmployees" mat-button>Employees</button>
+    <button (click)="mealsSelected()" [disabled]="showMeals" mat-button>Meals</button>
+    <button (click)="reservationsSelected()" [disabled]="showReservations" mat-button>Reservations</button>
   </mat-toolbar>
   <div class="dashboard-body">
-    <div  style="margin: 10px; overflow: auto" *ngIf="showEmployees">
+    <div *ngIf="showEmployees" style="margin: 10px; overflow: auto">
       <app-employees (refresh)="onRefresh()" [departmentList]="departmentList">
       </app-employees>
     </div>
-    <div  style="margin: 10px; overflow: auto"  *ngIf="showMeals" >
-      <app-report  [departmentList]="departmentList" [price]="price"></app-report>
+    <div *ngIf="showMeals" style="margin: 10px; overflow: auto">
+      <app-report [departmentList]="departmentList" [price]="price"></app-report>
     </div>
-    <div   style="margin: 10px; overflow: auto" *ngIf="showReservations">
-      <app-reservation  ></app-reservation>
+    <div *ngIf="showReservations" style="margin: 10px; overflow: auto">
+      <app-reservation></app-reservation>
     </div>
   </div>
 </ng-container>

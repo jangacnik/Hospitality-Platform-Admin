@@ -1,18 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
-import {FoodTrackerEntryFull} from "../model/FoodTrackerEntryFull";
-import {FoodTrackerUserWithMealEntry} from "../model/FoodTrackerUserWithMealEntry";
-import {FoodTrackerUser} from "../model/FoodTrackerUser";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {UserEditDialogComponent} from "../dialogs/user-edit-dialog/user-edit-dialog.component";
-import {CsvExportService} from "../service/csv-export.service";
-import {delay, first, forkJoin, merge, repeat, retry, timer} from "rxjs";
 import {DepartmentService} from "../service/department.service";
 import {DepartmentListItem} from "../model/DepartmentListItem";
-import {MonthlyMealInfo} from "../model/MonthlyMealInfo";
 import {ReservationService} from "../service/reservation.service";
-import {ReservationEntry} from "../model/ReservationEntry";
 
 @Component({
   selector: 'app-dashboard',
@@ -22,12 +12,12 @@ import {ReservationEntry} from "../model/ReservationEntry";
 export class DashboardComponent implements OnInit {
 
 
-
   showMeals = false;
   showEmployees = true;
   showReservations = false;
   departmentList: DepartmentListItem[] = undefined;
   price: number;
+
   constructor(private foodTrackerRestService: FoodTrackerRestService,
               private departmentService: DepartmentService,
               private reservationService: ReservationService) {

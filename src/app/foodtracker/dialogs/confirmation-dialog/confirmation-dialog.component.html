@@ -1,8 +1,12 @@
-<mat-card>
-  <mat-card-title>{{title}}</mat-card-title>
-  <mat-card-content>{{msg}}</mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button style="color: #fff;background-color: #153961;" (click)="dialogRef.close(true)">Confirm</button>
-    <button mat-raised-button (click)="dialogRef.close(false)">Cancel</button>
-  </mat-card-actions>
-</mat-card>
+<h1 mat-dialog-title>
+  {{title}}
+</h1>
+
+<div mat-dialog-content>
+  <p>{{msg}}</p>
+</div>
+
+<div mat-dialog-actions>
+  <button (click)="dialogRef.close(false)" mat-button>No</button>
+  <button (click)="dialogRef.close(true)" color="primary" mat-raised-button>Yes</button>
+</div>

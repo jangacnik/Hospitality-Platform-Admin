@@ -1,12 +1,12 @@
 <div fxFlexFill fxLayout="column">
-  <mat-toolbar fxLayoutGap="20px" fxFlex="6">
-    <img  routerLink="" src="/assets/logo/VR_black.svg" alt="Vestlia Resort" width="320px">
+  <mat-toolbar fxFlex="6" fxLayoutGap="20px">
+    <img alt="Vestlia Resort" routerLink="" src="/assets/logo/VR_black.svg" width="320px">
     <span fxFlex></span>
     <ng-container *ngIf="isLoggedIn()">
 
       <button mat-button routerLink="">Home</button>
-      <button mat-button  routerLink="/user">Profile</button>
-      <button mat-button  (click)="logout()">Logout</button>
+      <button mat-button routerLink="/user">Profile</button>
+      <button (click)="logout()" mat-button>Logout</button>
     </ng-container>
   </mat-toolbar>
   <div class="main" fxFlex style="overflow: hidden; margin-bottom: 10px">

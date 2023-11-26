@@ -2,10 +2,12 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   HostListener,
   Input,
-  OnInit, Output,
+  OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
@@ -16,15 +18,15 @@ import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "../dialogs/create-user-dialog/create-user-dialog.component";
 import {CreateDepartmentDialogComponent} from "../dialogs/create-department-dialog/create-department-dialog.component";
 import {ConfirmationDialogComponent} from "../dialogs/confirmation-dialog/confirmation-dialog.component";
-import {data} from "autoprefixer";
 import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
+import {PdImportDialogComponent} from "../dialogs/pd-import-dialog/pd-import-dialog.component";
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']
 })
-export class EmployeesComponent implements OnInit, AfterViewChecked{
+export class EmployeesComponent implements OnInit, AfterViewChecked, AfterViewInit {
   searchForm = new FormGroup({
     searchName: new FormControl('', []),
     searchDepartment: new FormControl('', [])
@@ -37,25 +39,30 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
   self: ElementRef;
   parentH: number;
   displayedColumns: string[] = ['employeeNumber', 'name', 'department', 'options'];
+  dataReady = false;
+
   constructor(private dialog: MatDialog, private foodtrackerService: FoodTrackerRestService) {
   }
+
   clearForm() {
     this.searchForm.reset();
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
-  }
-  ngAfterViewChecked() {
-    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
-  }
-  ngOnInit(): void {
-    this.getUserData();
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight * 0.75;
   }
 
-  dataReady = false;
+  ngAfterViewChecked() {
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight * 0.75;
+  }
+
+  ngOnInit(): void {
+    // this.getUserData();
+  }
+
   onSearch() {
-    if(this.employeesOld.length == 0) {
+    if (this.employeesOld.length == 0) {
       this.employeesOld = this.employees;
     }
     const name = this.searchForm.get("searchName").value;
@@ -82,7 +89,6 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
   }
 
   onUserEdit(user: FoodTrackerUser) {
-    console.log(user);
     let dialogRef = this.dialog.open(UserEditDialogComponent, {
       width: '500px',
       data: {
@@ -90,7 +96,12 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
         departmentList: this.departmentList
       }
     });
-
+    dialogRef.afterClosed().subscribe(value => {
+      if (value) {
+        this.refresh.emit();
+        this.getUserData();
+      }
+    })
   }
 
   createNewUser(): void {
@@ -101,8 +112,9 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.refresh.emit();
+        this.refreshData();
       }
       dialogRef = null;
     });
@@ -113,39 +125,45 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
       width: '500px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.refresh.emit();
+        this.refreshData();
       }
       dialogRef = null;
     });
   }
 
 
-  deleteUser(user:FoodTrackerUser): void {
+  deleteUser(user: FoodTrackerUser): void {
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',
-      data:{title: "Delete User: " +user.firstName + " " + user.lastName, msg: "Are you sure you want to delete the user with employee number: "+user.employeeNumber}
+      data: {
+        title: "Delete User: " + user.firstName + " " + user.lastName,
+        msg: "Are you sure you want to delete the user with employee number: " + user.employeeNumber
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.foodtrackerService.deleteUser(user.employeeNumber).subscribe(
           {
             next: (v) => {
               this.refresh.emit();
+              this.refreshData();
             },
             error: (e) => {
-              console.log(e);
             }
           }
         );
       }
-     dialogRef = null;
+      dialogRef = null;
     });
   }
 
   getUserData() {
+    this.dataReady = false;
     this.foodtrackerService.getAllUsers().subscribe((data) => {
       this.employees = data;
+      this.employees.sort((a, b) => Number(a.employeeNumber) - Number(b.employeeNumber))
       this.employeesOld = data;
       this.dataReady = true;
     });
@@ -154,5 +172,22 @@ export class EmployeesComponent implements OnInit, AfterViewChecked{
   refreshData() {
     this.dataReady = false;
     this.getUserData();
+  }
+
+  ngAfterViewInit(): void {
+    this.getUserData();
+  }
+
+  refreshUserDate() {
+    let dialogRef = this.dialog.open(PdImportDialogComponent, {
+      width: '500px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.refresh.emit();
+        this.refreshData();
+      }
+      dialogRef = null;
+    });
   }
 }

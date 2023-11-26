@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthenticationService} from "./auth/service/authentication.service";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-root',

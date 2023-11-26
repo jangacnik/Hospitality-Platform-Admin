@@ -1,17 +1,17 @@
 <div fxFlexFill style="align-items: center; justify-content: center">
-  <mat-card fxFlex="30" fxLayout="column" >
+  <mat-card fxFlex="30" fxLayout="column">
     <mat-card-header>
       <h1>Admin login</h1>
     </mat-card-header>
     <mat-card-content>
-      <form fxFlex fxLayout="column" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" fxFlex fxLayout="column">
         <mat-form-field>
           <mat-label>E-mail</mat-label>
-          <input matInput type="email" formControlName="email">
+          <input formControlName="email" matInput type="email">
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput label="Password" type="password" formControlName="password">
+          <input formControlName="password" label="Password" matInput type="password">
         </mat-form-field>
         <button [disabled]="loginForm.invalid" mat-raised-button type="submit">Login</button>
       </form>

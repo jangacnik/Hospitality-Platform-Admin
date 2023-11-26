@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CsvExportService } from './csv-export.service';
+import {CsvExportService} from './csv-export.service';
 
 describe('CsvExportService', () => {
   let service: CsvExportService;

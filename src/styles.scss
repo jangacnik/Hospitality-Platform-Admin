@@ -141,13 +141,17 @@ $md-accent: (
 
 $my-primary: mat.define-palette($md-primary, 500);
 $my-accent: mat.define-palette($md-secondary, A200, A100, A400);
+$my-alt: mat.define-palette($md-primary, A700, A100, A400);
+$my-alt-accent: mat.define-palette($md-secondary, A200, A100, A400);
 
 $my-warn: mat.define-palette(mat.$red-palette);
 $my-theme: mat.define-light-theme((
   color: (
     primary: $my-primary,
     accent: $my-accent,
-    warn: $my-warn
+    warn: $my-warn,
+    alt: $my-alt,
+    alt-accent: $my-alt-accent
   ),
 
   typography: mat.define-typography-config(),

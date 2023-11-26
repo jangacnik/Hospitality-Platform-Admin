@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CsvExportService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  downloadFile(data: any, filename='data') {
-    let csvData = this.ConvertToCSV(data, ['Employee Number', 'Name',  'Department', 'Number of reserved meals', "Number of used meals", "Total price"]);
+  downloadFile(data: any, filename = 'data') {
+    let csvData = this.ConvertToCSV(data, ['Employee Number', 'Name', 'Department', 'Number of reserved meals', "Number of used meals", "Total price"]);
     // console.log(csvData)
-    let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
+    let blob = new Blob(['\ufeff' + csvData], {type: 'text/csv;charset=utf-8;'});
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
     let isSafariBrowser = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
@@ -53,7 +54,7 @@ export class CsvExportService {
     row = row.slice(0, -1);
     str += row + '\r\n';
     for (let i = 0; i < array.length; i++) {
-      let line = (i+1)+'';
+      let line = (i + 1) + '';
       for (let index in headerList) {
         let head = headerList[index];
 

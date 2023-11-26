@@ -1,10 +1,12 @@
 table {
   width: 100%;
 }
+
 .example-container {
   //max-height:  800px;
   overflow: auto;
 }
+
 loading-indicator {
   position: fixed;
   z-index: 999;

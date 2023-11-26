@@ -4,14 +4,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FoodTrackerRestService} from "../../service/food-tracker-rest.service";
 import {DepartmentListItem} from "../../model/DepartmentListItem";
 import {Roles} from "../../model/enum/roles";
-import {resolve} from "@angular/compiler-cli";
 
 @Component({
   selector: 'app-create-user-dialog',
   templateUrl: './create-user-dialog.component.html',
   styleUrls: ['./create-user-dialog.component.scss']
 })
-export class CreateUserDialogComponent implements OnInit{
+export class CreateUserDialogComponent implements OnInit {
   createForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
@@ -21,12 +20,14 @@ export class CreateUserDialogComponent implements OnInit{
     roles: new FormControl([''], [Validators.required]),
   });
   departmentList: DepartmentListItem[] = [];
+  validRoles = [Roles.USER, Roles.ADMIN];
+
   constructor(public dialogRef: MatDialogRef<CreateUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
               private foodtrackerService: FoodTrackerRestService) {
-      this.departmentList = data.departmentList;
+    this.departmentList = data.departmentList;
   }
-  validRoles = [Roles.USER, Roles.ADMIN];
+
   createUser() {
     this.foodtrackerService.createUser(this.createForm.value).subscribe({
       next: (v) => {

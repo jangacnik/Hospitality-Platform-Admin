@@ -11,7 +11,7 @@ import {data} from "autoprefixer";
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss']
 })
-export class ReportComponent implements OnInit, AfterViewChecked{
+export class ReportComponent implements OnInit, AfterViewChecked {
   displayedColumnsMeals: string[] = ['employeeNumber', 'name', 'department', 'meals_reserved', 'meals_used', 'total'];
   searchForm = new FormGroup({
     searchName: new FormControl('', []),
@@ -26,15 +26,22 @@ export class ReportComponent implements OnInit, AfterViewChecked{
   @ViewChild("self")
   self: ElementRef;
   parentH: number;
+
+  noReportsAvailable = false;
+  fetchReportError = false;
+  dataReady = false;
+  protected readonly data = data;
+
   constructor(private csvExport: CsvExportService, private foodService: FoodTrackerRestService) {
   }
-  dataReady = false;
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight * 0.75;
   }
+
   ngAfterViewChecked() {
-    this.parentH = this.self.nativeElement.offsetParent.clientHeight*0.75;
+    this.parentH = this.self.nativeElement.offsetParent.clientHeight * 0.75;
   }
 
   onSearchMeals() {
@@ -55,9 +62,11 @@ export class ReportComponent implements OnInit, AfterViewChecked{
       });
     }
   }
+
   onResetMeals() {
     this.entries = this.entriesOld;
   }
+
   getReport() {
     this.csvExport.downloadFile(this.entries, "report");
   }
@@ -71,6 +80,10 @@ export class ReportComponent implements OnInit, AfterViewChecked{
       this.entries = data;
       this.entriesOld = data;
       this.dataReady = true;
+      this.noReportsAvailable = false;
+    }, err => {
+      this.dataReady = true;
+      this.noReportsAvailable = true;
     });
   }
 
@@ -78,6 +91,4 @@ export class ReportComponent implements OnInit, AfterViewChecked{
     this.dataReady = false;
     this.getReportData();
   }
-
-  protected readonly data = data;
 }

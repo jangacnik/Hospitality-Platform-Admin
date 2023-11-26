@@ -1,11 +1,11 @@
 <div fxFlex fxLayout="column" style="overflow: hidden">
   <mat-card>
     <mat-card-content>
-      <form fxFlex fxLayoutGap="15px" fxLayoutAlign="center center" fxLayout="row" [formGroup]="searchForm"
-            (ngSubmit)="onSearch()">
+      <form (ngSubmit)="onSearch()" [formGroup]="searchForm" fxFlex fxLayout="row" fxLayoutAlign="center center"
+            fxLayoutGap="15px">
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput type="text" formControlName="searchName">
+          <input formControlName="searchName" matInput type="text">
         </mat-form-field>
         <mat-form-field *ngIf="departmentList !== undefined">
           <mat-label>Department</mat-label>
@@ -17,53 +17,61 @@
         </mat-form-field>
         <div fxLayout="row" fxLayoutGap="20px">
           <button fxFlex mat-raised-button type="submit">Search</button>
-          <button fxFlex mat-raised-button type="reset" (click)="onReset()">Reset</button>
+          <button (click)="onReset()" fxFlex mat-raised-button type="reset">Reset</button>
         </div>
       </form>
       <span fxFlex></span>
       <div fxLayout="row" fxLayoutGap="20px">
-        <button mat-raised-button class="create-user-btn" (click)="createNewUser()">
+        <button (click)="refreshData()" [matTooltip]="'Update employee list'" mat-icon-button>
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button (click)="createNewUser()" class="create-user-btn" mat-raised-button>
           <mat-icon>person</mat-icon>
           Add new user
         </button>
-        <button mat-raised-button class="create-dep-btn" (click)="createNewDepartment()">
+        <button (click)="createNewDepartment()" class="create-dep-btn" mat-raised-button>
           <mat-icon>badge</mat-icon>
           Add new department
+        </button>
+        <button (click)="refreshUserDate()" class="create-dep-btn" mat-raised-button
+                style="background-color: aquamarine; color: black">
+          <mat-icon>sync</mat-icon>
+          Import from Planday
         </button>
       </div>
     </mat-card-content>
   </mat-card>
-  <div *ngIf="dataReady" #self class="example-container"
-       [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}">
-    <table mat-table [dataSource]="employees">
+  <div #self *ngIf="dataReady" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}"
+       class="example-container">
+    <table [dataSource]="employees" mat-table>
       <ng-container matColumnDef="employeeNumber">
-        <th mat-header-cell *matHeaderCellDef> Employee No.</th>
-        <td mat-cell *matCellDef="let element"> {{element.employeeNumber}} </td>
+        <th *matHeaderCellDef mat-header-cell> Employee No.</th>
+        <td *matCellDef="let element" mat-cell> {{element.employeeNumber}} </td>
       </ng-container>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
+        <th *matHeaderCellDef mat-header-cell> Name</th>
+        <td *matCellDef="let element" mat-cell> {{element.firstName}} {{element.lastName}} </td>
       </ng-container>
       <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef> Departments</th>
-        <td mat-cell *matCellDef="let element"> {{element.departments.join(", ")}} </td>
+        <th *matHeaderCellDef mat-header-cell> Departments</th>
+        <td *matCellDef="let element" mat-cell> {{element.departments.join(", ")}} </td>
       </ng-container>
       <ng-container matColumnDef="options">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="onUserEdit(element)">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+          <button (click)="onUserEdit(element)" mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button style="color: indianred" (click)="deleteUser(element)">
+          <button (click)="deleteUser(element)" mat-icon-button style="color: indianred">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
     </table>
   </div>
-  <mat-spinner style="margin: 0 auto" *ngIf="!dataReady"></mat-spinner>
+  <mat-spinner *ngIf="!dataReady" style="margin: 0 auto"></mat-spinner>
 </div>
 
