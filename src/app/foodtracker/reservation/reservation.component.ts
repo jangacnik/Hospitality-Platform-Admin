@@ -57,6 +57,7 @@ export class ReservationComponent implements AfterViewChecked, OnInit {
       this.reservations = data;
       this.dataReady = true;
       this.noReservationAvailable = false;
+      this.reservations.sort((a, b) => Number(a.employeeNumber) - Number(b.employeeNumber))
 
       this.sumReservationCount();
     }, error => {

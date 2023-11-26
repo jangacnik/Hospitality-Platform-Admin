@@ -18,6 +18,8 @@ import {NgIconsModule} from "@ng-icons/core";
 import {JwtInterceptor} from "./auth/interceptor/jwt.interceptor";
 import {FlexModule} from "@angular/flex-layout";
 import {CommonModule, DatePipe, NgOptimizedImage} from "@angular/common";
+import {FoodTrackerRestService} from "./foodtracker/service/food-tracker-rest.service";
+import 'hammerjs';
 
 const routes: Routes = [
   {path: 'user', component: ProfileComponent, canActivate: [loginActivateGuard]},
@@ -54,7 +56,8 @@ const routes: Routes = [
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    DatePipe
+    DatePipe,
+    FoodTrackerRestService
   ],
   bootstrap: [AppComponent]
 })

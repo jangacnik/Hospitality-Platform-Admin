@@ -79,6 +79,10 @@ export class ReportComponent implements OnInit, AfterViewChecked {
     this.foodService.getCurrentMonthTracking().subscribe((data) => {
       this.entries = data;
       this.entriesOld = data;
+      this.entries.sort(
+        (a, b) =>
+          Number(a.employeeNumber) - Number(b.employeeNumber))
+
       this.dataReady = true;
       this.noReportsAvailable = false;
     }, err => {

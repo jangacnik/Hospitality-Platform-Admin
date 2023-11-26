@@ -33,5 +33,9 @@ export class AuthenticationService {
     token.refreshToken ? localStorage.setItem('refresh', token.refreshToken) : null;
   }
 
+  changePassword(changePasswordRequest) {
+    return this.http.post<void>(enviroment.baseUrlTest + "auth/password", changePasswordRequest);
+  }
+
 
 }

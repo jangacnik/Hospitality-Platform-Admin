@@ -1,1 +1,54 @@
-<p>profile works!</p>
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center center" *ngIf="dataReady">
+  <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+
+    <mat-card fxFlex style="width: 50%; min-width: 50%; padding: 20px">
+      <mat-card-title>
+        <h2>Profile</h2><span fxFlex></span>
+        <button mat-icon-button [matTooltip]="'Change password'" (click)="onChangePassword()"><mat-icon>key</mat-icon></button>
+        <button mat-icon-button [matTooltip]="'Edit data'" (click)="onEdit()"><mat-icon>edit</mat-icon></button>
+      </mat-card-title>
+
+      <mat-card-content style="padding: 15px">
+        <form  (ngSubmit)="onSaveChanges()" [formGroup]="form" fxLayout="column" fxLayoutAlign="center center"
+              fxLayoutGap="15px">
+
+          <mat-form-field fxFlex style="width: 100%">
+            <mat-label>E-mail</mat-label>
+            <input [readonly]="readonly" formControlName="email" matInput type="email">
+          </mat-form-field>
+
+          <mat-form-field fxFlex style="width: 100%">
+            <mat-label>Employee Number</mat-label>
+            <input [readonly]="readonly" formControlName="employeeNumber" matInput type="test">
+          </mat-form-field>
+          <mat-form-field fxFlex style="width: 100%">
+            <mat-label>First Name</mat-label>
+            <input [readonly]="readonly" formControlName="firstName" matInput type="text">
+          </mat-form-field>
+          <mat-form-field fxFlex style="width: 100%">
+            <mat-label>Last Name</mat-label>
+            <input [readonly]="readonly" formControlName="lastName" matInput type="text">
+          </mat-form-field>
+
+          <mat-form-field disabled fxFlex style="width: 100%">
+            <mat-label>Departments</mat-label>
+            <mat-select  formControlName="departments" multiple>
+              <mat-option *ngFor="let d of departmentList" [value]="d.id">{{d.id}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field disabled fxFlex style="width: 100%">
+            <mat-label>Roles</mat-label>
+            <mat-select  formControlName="roles" multiple>
+              <mat-option *ngFor="let r of validRoles" [value]="r">{{r}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button *ngIf="!readonly" mat-raised-button style="width: 50%" color="primary" type="submit">Save changes</button>
+        </form>
+      </mat-card-content>
+
+
+    </mat-card>
+  </div>
+</div>

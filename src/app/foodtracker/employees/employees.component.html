@@ -1,4 +1,4 @@
-<div fxFlex fxLayout="column" style="overflow: hidden">
+<div fxFlex fxLayout="column" style="overflow: hidden;">
   <mat-card>
     <mat-card-content>
       <form (ngSubmit)="onSearch()" [formGroup]="searchForm" fxFlex fxLayout="row" fxLayoutAlign="center center"
@@ -43,7 +43,7 @@
   </mat-card>
   <div #self *ngIf="dataReady" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}"
        class="example-container">
-    <table [dataSource]="employees" mat-table>
+    <table [dataSource]="employees" mat-table  style="margin-bottom: 10px">
       <ng-container matColumnDef="employeeNumber">
         <th *matHeaderCellDef mat-header-cell> Employee No.</th>
         <td *matCellDef="let element" mat-cell> {{element.employeeNumber}} </td>

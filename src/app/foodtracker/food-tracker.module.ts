@@ -15,6 +15,7 @@ import {CreateDepartmentDialogComponent} from './dialogs/create-department-dialo
 import {ConfirmationDialogComponent} from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import {NoticeDialogComponent} from './dialogs/notice-dialog/notice-dialog.component';
 import {PdImportDialogComponent} from './dialogs/pd-import-dialog/pd-import-dialog.component';
+import { ChangePasswordDialogComponent } from './dialogs/change-password-dialog/change-password-dialog.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {PdImportDialogComponent} from './dialogs/pd-import-dialog/pd-import-dial
     CreateDepartmentDialogComponent,
     ConfirmationDialogComponent,
     NoticeDialogComponent,
-    PdImportDialogComponent
+    PdImportDialogComponent,
+    ChangePasswordDialogComponent
   ],
   imports: [
     CommonModule,

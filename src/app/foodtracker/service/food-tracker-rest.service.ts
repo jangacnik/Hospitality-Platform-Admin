@@ -10,8 +10,15 @@ import {enviroment} from "../../../enviroments/enviroment";
   providedIn: 'root'
 })
 export class FoodTrackerRestService {
+  get user(): FoodTrackerUser {
+    return this._user;
+  }
 
-  user: FoodTrackerUser = undefined;
+  set user(value: FoodTrackerUser) {
+    this._user = value;
+  }
+
+  private _user: FoodTrackerUser = undefined;
 
   constructor(private http: HttpClient) {
   }
