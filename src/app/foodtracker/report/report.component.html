@@ -23,12 +23,12 @@
         <mat-icon>refresh</mat-icon>
       </button>
 
-      <button (click)="getReport()" mat-raised-button style="background-color: aquamarine">Download report</button>
+      <button (click)="exportexcel()" mat-raised-button style="background-color: aquamarine">Download report</button>
     </mat-card-content>
   </mat-card>
   <div #self *ngIf="dataReady" [ngStyle]="{'max-height': parentH+'px', 'height': parentH+'px'}"
        class="example-container">
-    <table *ngIf="!noReportsAvailable" [dataSource]="entries" mat-table>
+    <table *ngIf="!noReportsAvailable" [dataSource]="entries" mat-table id="xls-table">
       <ng-container matColumnDef="employeeNumber">
         <th *matHeaderCellDef mat-header-cell> Employee No.</th>
         <td *matCellDef="let element" mat-cell> {{element.employeeNumber}} </td>

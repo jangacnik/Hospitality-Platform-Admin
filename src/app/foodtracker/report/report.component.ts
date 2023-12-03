@@ -5,6 +5,7 @@ import {DepartmentListItem} from "../model/DepartmentListItem";
 import {CsvExportService} from "../service/csv-export.service";
 import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
 import {data} from "autoprefixer";
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-report',
@@ -94,5 +95,20 @@ export class ReportComponent implements OnInit, AfterViewChecked {
   refreshData() {
     this.dataReady = false;
     this.getReportData();
+  }
+
+  exportexcel(): void
+  {
+    /* pass here the table id */
+    const json = JSON.stringify(this.entries)
+    const ws: XLSX.WorkSheet =XLSX.utils.json_to_sheet(this.entries);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, "report.xlsx");
+
   }
 }
