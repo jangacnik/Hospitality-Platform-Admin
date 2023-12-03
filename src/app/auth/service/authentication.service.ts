@@ -21,6 +21,7 @@ export class AuthenticationService {
 
   public logout() {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("refresh");
     this.router.navigate(["login"]);
   }
 

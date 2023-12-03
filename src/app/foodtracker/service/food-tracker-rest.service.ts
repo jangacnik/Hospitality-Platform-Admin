@@ -40,8 +40,6 @@ export class FoodTrackerRestService {
   }
 
   public createUser(usr: CreateFoodTrackerUserModel): Observable<any> {
-    // let body = JSON.stringify(usr);
-    // console.log(body);
     return this.http.post<any>(enviroment.baseUrlTest + "department/user", usr);
   }
 
