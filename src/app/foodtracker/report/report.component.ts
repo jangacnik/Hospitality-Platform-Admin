@@ -5,6 +5,9 @@ import {DepartmentListItem} from "../model/DepartmentListItem";
 import {CsvExportService} from "../service/csv-export.service";
 import {FoodTrackerRestService} from "../service/food-tracker-rest.service";
 import {data} from "autoprefixer";
+import { Workbook } from 'exceljs';
+
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-report',
@@ -13,6 +16,8 @@ import {data} from "autoprefixer";
 })
 export class ReportComponent implements OnInit, AfterViewChecked {
   displayedColumnsMeals: string[] = ['employeeNumber', 'name', 'department', 'meals_reserved', 'meals_used', 'total'];
+  excelHeaders: string[] = ['Employee Number', 'Name', 'Department', 'Reserved meals', 'Recorded Meals', 'Total price'];
+
   searchForm = new FormGroup({
     searchName: new FormControl('', []),
     searchDepartment: new FormControl('', [])
@@ -94,5 +99,50 @@ export class ReportComponent implements OnInit, AfterViewChecked {
   refreshData() {
     this.dataReady = false;
     this.getReportData();
+  }
+
+  exportexcel(): void
+  {
+    const workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Meal Report');
+    const keys = Object.keys(this.entries[0]);
+    let headerCell = worksheet.addRow(this.excelHeaders);
+    headerCell.eachCell((cell, number) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'ccaf8a' },
+        bgColor: { argb: '' }
+      }
+      cell.font = {
+        bold: true,
+        color: { argb: 'FFFFFF' },
+        size: 12
+      }
+    })
+    this.entries.forEach((item) => {
+      const row:any = [];
+      keys.forEach((header) => {
+        if(header === "department"){
+          row.push(item[header].join(", "));
+        }else if (header === "employeeNumber") {
+          row.push(+item[header])
+        } else {
+          row.push(item[header]);
+        }
+      });
+      worksheet.addRow(row);
+    });
+
+    for (let l: number = 1; l <= this.excelHeaders.length; l++) {
+      worksheet.getColumn(l).width = 18;
+    }
+    worksheet.getColumn(2).width = 25;
+    worksheet.getColumn(3).width = 25;
+    worksheet.getColumn(6).numFmt = 'kr#,##0.00;[Red]-kr#,##0.00';
+    workbook.xlsx.writeBuffer().then((buffer: any) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs(blob, `report.xlsx`);
+    });
   }
 }
