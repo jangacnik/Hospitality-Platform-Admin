@@ -54,7 +54,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="total">
-        <th *matHeaderCellDef mat-header-cell> Departments</th>
+        <th *matHeaderCellDef mat-header-cell> Total price</th>
         <td *matCellDef="let element" mat-cell> {{element.mealTotalPrice | currency:"NOK":"symbol-narrow"}} </td>
       </ng-container>
       <tr *matHeaderRowDef="displayedColumnsMeals; sticky: true" mat-header-row></tr>
