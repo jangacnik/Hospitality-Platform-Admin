@@ -16,6 +16,7 @@ import {Roles} from "../../model/enum/roles";
 export class UserEditDialogComponent implements OnInit {
 
   editForm: FormGroup<{
+    id: FormControl<string | null>;
     firstName: FormControl<string | null>;
     lastName: FormControl<string | null>;
     roles: FormControl<string[] | null>;
@@ -40,6 +41,7 @@ export class UserEditDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.editForm = new FormGroup({
+      id: new FormControl(this.user.id, [Validators.required]),
       email: new FormControl(this.user.email, [Validators.required]),
       firstName: new FormControl(this.user.firstName, [Validators.required]),
       lastName: new FormControl(this.user.lastName, [Validators.required]),

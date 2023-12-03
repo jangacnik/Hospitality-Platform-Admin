@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit{
   dataReady = false;
   readonly = true;
   form: FormGroup<{
+    id: FormControl<string | null>;
     email: FormControl<string | null>;
     employeeNumber: FormControl<string | null>;
     firstName: FormControl<string | null>;
@@ -64,6 +65,7 @@ export class ProfileComponent implements OnInit{
 
   initData(data) {
     this.form = new FormGroup({
+      id: new FormControl(data.id, [Validators.required]),
       email: new FormControl(data.email, [Validators.required]),
       firstName: new FormControl(data.firstName, [Validators.required]),
       lastName: new FormControl(data.lastName, [Validators.required]),

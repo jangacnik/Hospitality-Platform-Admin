@@ -1,4 +1,5 @@
 export class FoodTrackerUser {
+  id: string;
   lastName: string;
   firstName: string;
   email: string;
