@@ -153,9 +153,16 @@ $my-theme: mat.define-light-theme((
     alt: $my-alt,
     alt-accent: $my-alt-accent
   ),
-
   typography: mat.define-typography-config(),
   density: 0,
 ));
+
+.timepicker-overlay {
+  z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 10000000 !important;
+}
 
 @include mat.all-component-themes($my-theme);

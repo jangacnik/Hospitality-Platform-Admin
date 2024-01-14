@@ -15,11 +15,14 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['food'])
   }
 
+  onTaskClicked() {
+    this.router.navigate(["task"])
+  }
+
   ngOnInit(): void {
     if (this.fd.user === undefined) {
       this.fd.getUserData().subscribe((user) => {
         this.fd.user = user;
-        console.log(user);
       });
     }
   }

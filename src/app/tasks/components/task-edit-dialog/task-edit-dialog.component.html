@@ -1,0 +1,94 @@
+<div fxFlex fxLayoutGap="20px" style="padding: 15px">
+  <form style="height: 100%; width: 100%" fxFlexFill (ngSubmit)="onSubmit()" [formGroup]="taskForm" fxLayout="column"
+        fxLayoutAlign="center center">
+    <mat-tab-group fxFlex style="width: 100%; height: 100%;">
+      <mat-tab label="Task List" fxLayout="column" fxLayoutGap="15px" fxFlex style="height: 100%;">
+        <mat-form-field style="width: 100%">
+          <mat-label>Task List Title</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+          <mat-label>Departments</mat-label>
+          <mat-select formControlName="departments"  multiple>
+            <mat-option *ngFor="let d of departmentList"
+                        [value]='d.id'>{{d.departmentName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 [format]="24"
+                 formControlName="activeFrom"
+                 [ngxMatTimepicker]="pickerD"
+                 placeholder="00:00"/>
+          <mat-icon matSuffix
+                    (click)="pickerD.open()">
+            watch_later
+          </mat-icon>
+        </mat-form-field>
+        <div class="ngx-mtp-box-bordered">
+          <ngx-mat-timepicker color="primary"
+                              appendToInput="false"
+                              #pickerD></ngx-mat-timepicker>
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px" style="margin: 10px">
+          <ng-container>
+            <mat-label>Repeat</mat-label>
+            <mat-slide-toggle (click)="onRepeatToggle()" formControlName="doesRepeat"></mat-slide-toggle>
+          </ng-container>
+          <span fxFlex></span>
+          <ng-container>
+            <mat-label>Active</mat-label>
+            <mat-slide-toggle color="primary" formControlName="active"></mat-slide-toggle>
+          </ng-container>
+        </div>
+        <div [formGroupName]="'repeat'">
+          <div [hidden]="!taskForm.controls.doesRepeat.value">
+            <mat-radio-group name="repeatType" [formControlName]="'repeatType'">
+              <mat-radio-button (click)="onWeekly()" color="primary" name="meekly" value="WEEKLY">Weekly
+              </mat-radio-button>
+              <mat-radio-button (click)="resetRepeat()" color="primary" name="monthly" value="MONTHLY">Monthly
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div [hidden]="taskForm.controls.repeat.controls.repeatType.value !== 'WEEKLY'">
+            <mat-form-field style="width: 100%">
+              <mat-label>Repeat every</mat-label>
+              <mat-select [formControlName]="'repeatEvery'">
+                <mat-option *ngFor="let d of weekRange" [value]="d">{{d}} weeks</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-chip-listbox [formControlName]="'repeatOnWeekDays'" [multiple]="true">
+              <mat-chip-option *ngFor="let day of weekDays" [value]="day.id">{{day.label}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div [hidden]="taskForm.controls.repeat.controls.repeatType.value !== 'MONTHLY'">
+            <mat-tab-group (selectedTabChange)="resetMonthly()">
+              <mat-tab label="Repeat on date">
+                <mat-form-field style="width: 100%">
+                  <mat-label>Repeat on:</mat-label>
+                  <mat-select [formControlName]="'repeatOnMonthDay'">
+                    <mat-option *ngFor="let d of dayRangeMonthFull" [value]="d.id">{{d.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-tab>
+              dayRangeMonthFull
+              <mat-tab label="Repeat on day">
+                <mat-form-field style="width: 100%">
+                  <mat-label>Repeat every</mat-label>
+                  <mat-select [formControlName]="'repeatDayEnumValue'">
+                    <mat-option *ngFor="let d of dayRangeMonth" [value]="d.id">{{d.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-chip-listbox [formControlName]="'repeatDayEnum'" [multiple]="false">
+                  <mat-chip-option *ngFor="let day of weekDaysMonth" [value]="day.id">{{day.label}}</mat-chip-option>
+                </mat-chip-listbox>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab fxFlexFill label="Tasks"></mat-tab>
+    </mat-tab-group>
+    <button mat-raised-button type="submit">Save</button>
+  </form>
+</div>

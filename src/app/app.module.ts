@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
@@ -17,9 +17,12 @@ import {heroBuildingStorefront, heroPencilSquare, heroUserGroup} from '@ng-icons
 import {NgIconsModule} from "@ng-icons/core";
 import {JwtInterceptor} from "./auth/interceptor/jwt.interceptor";
 import {FlexModule} from "@angular/flex-layout";
-import {CommonModule, DatePipe, NgOptimizedImage} from "@angular/common";
+import {CommonModule, DatePipe, NgOptimizedImage, registerLocaleData} from "@angular/common";
 import {FoodTrackerRestService} from "./foodtracker/service/food-tracker-rest.service";
 import 'hammerjs';
+import {TaskDashboardComponent} from './tasks/components/task-dashboard/task-dashboard.component';
+import {TaskModule} from "./tasks/task.module";
+import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 
 const routes: Routes = [
   {path: 'user', component: ProfileComponent, canActivate: [loginActivateGuard]},
@@ -27,6 +30,7 @@ const routes: Routes = [
   {path: '', component: LoginComponent, canDeactivate: [loginActivateGuard]},
   {path: 'login', component: LoginComponent, canDeactivate: [loginActivateGuard]},
   {path: 'food', component: DashboardComponent, canActivate: [loginActivateGuard]},
+  {path: 'task', component: TaskDashboardComponent, canActivate: [loginActivateGuard]},
   {path: 'home', component: HomeComponent, canActivate: [loginActivateGuard]}
 ];
 
@@ -35,7 +39,7 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -51,15 +55,19 @@ const routes: Routes = [
     HttpClientModule,
     // modules
     FoodTrackerModule,
+    TaskModule,
     CommonModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    NgxMatTimepickerModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true, },
+    { provide: LOCALE_ID, useValue: "no" },
     DatePipe,
     FoodTrackerRestService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

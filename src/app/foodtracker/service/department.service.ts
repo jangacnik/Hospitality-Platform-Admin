@@ -44,4 +44,7 @@ export class DepartmentService {
   private getDepartmentsRequest() {
     return this.http.get<any>(enviroment.baseUrlTest + "department/all/names");
   }
+  public getAllDepartmentsRequest() {
+    return this.http.get<any>(enviroment.baseUrlTest + "department/all");
+  }
 }
