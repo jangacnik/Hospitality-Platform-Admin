@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../../services/task.service";
 import {MatDialog} from "@angular/material/dialog";
-import {TaskEditDialogComponent} from "../task-edit-dialog/task-edit-dialog.component";
 
 @Component({
   selector: 'app-task-manager',

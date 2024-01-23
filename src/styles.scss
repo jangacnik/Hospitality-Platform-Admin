@@ -164,5 +164,11 @@ $my-theme: mat.define-light-theme((
 .timepicker-backdrop-overlay {
   z-index: 10000000 !important;
 }
+.mat-mdc-tab-body-content {
+  overflow: hidden !important;
+}
+#mat-mdc-dialog-0 > div {
+  overflow: hidden;
+}
 
 @include mat.all-component-themes($my-theme);

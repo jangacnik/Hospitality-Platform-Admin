@@ -55,16 +55,17 @@ const routes: Routes = [
     HttpClientModule,
     // modules
     FoodTrackerModule,
-    TaskModule,
     CommonModule,
     NgOptimizedImage,
     NgxMatTimepickerModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true, },
-    { provide: LOCALE_ID, useValue: "no" },
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true,},
+    {provide: LOCALE_ID, useValue: "no"},
     DatePipe,
     FoodTrackerRestService
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })

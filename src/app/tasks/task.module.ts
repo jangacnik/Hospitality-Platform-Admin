@@ -14,6 +14,9 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {NgxMatTimepickerComponent, NgxMatTimepickerDirective} from "ngx-mat-timepicker";
+import { TaskEditItemComponent } from './components/task-edit-dialog/task-edit-item/task-edit-item.component';
+import {AppModule} from "../app.module";
+import {ScrollIntoViewDirective} from "../directives/scroll-into-view.directive";
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import {NgxMatTimepickerComponent, NgxMatTimepickerDirective} from "ngx-mat-time
     TaskBrowserItemComponent,
     TaskManagerItemComponent,
     TaskManagerComponent,
-    TaskBrowserComponent
+    TaskBrowserComponent,
+    TaskEditItemComponent,
+    ScrollIntoViewDirective
   ],
   imports: [
     CommonModule,
@@ -36,7 +41,8 @@ import {NgxMatTimepickerComponent, NgxMatTimepickerDirective} from "ngx-mat-time
     MatSlideToggleModule,
     MatRadioModule,
     NgxMatTimepickerComponent,
-    NgxMatTimepickerDirective
+    NgxMatTimepickerDirective,
+    AppModule
   ],
   exports: [
     TaskManagerItemComponent,

@@ -1,15 +1,15 @@
-<div fxFlex fxLayoutGap="20px" style="padding: 15px">
+<div fxFlex fxLayoutGap="20px" style="padding: 15px; height: 100%">
   <form style="height: 100%; width: 100%" fxFlexFill (ngSubmit)="onSubmit()" [formGroup]="taskForm" fxLayout="column"
         fxLayoutAlign="center center">
     <mat-tab-group fxFlex style="width: 100%; height: 100%;">
-      <mat-tab label="Task List" fxLayout="column" fxLayoutGap="15px" fxFlex style="height: 100%;">
-        <mat-form-field style="width: 100%">
+      <mat-tab label="Task List" fxLayout="column"  fxLayoutGap="25px" fxFlex style="height: 700px;">
+        <mat-form-field style="width: 100%; margin-top: 10px">
           <mat-label>Task List Title</mat-label>
           <input matInput formControlName="title">
         </mat-form-field>
         <mat-form-field style="width: 100%">
           <mat-label>Departments</mat-label>
-          <mat-select formControlName="departments"  multiple>
+          <mat-select formControlName="departments" multiple>
             <mat-option *ngFor="let d of departmentList"
                         [value]='d.id'>{{d.departmentName}}</mat-option>
           </mat-select>
@@ -86,9 +86,28 @@
             </mat-tab-group>
           </div>
         </div>
+
       </mat-tab>
-      <mat-tab fxFlexFill label="Tasks"></mat-tab>
+      <mat-tab fxFlex style="height: 100%; width: 100%;" label="Tasks" fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+       <mat-list #list style="width: 100%; max-height: 550px; display: block; overflow-y:  auto;">
+             <mat-list-item role="listitem"
+                            style="width: 100%; height: 490px;"
+                            fxFlexFill
+                            *ngFor="let task of taskForm.controls.tasks.value; index as i;">
+               <app-task-edit-item style="width: 100%" fxFlex [taskInfo]="task" [editing]="i === 0 && editNew"
+                                   [appScrollIntoView]="task === selectedTask" [index]="i"
+               (deleteEvent)="deleteTask($event)" (editingEvent)="editNew = false"></app-task-edit-item>
+                  </mat-list-item>
+           </mat-list>
+           <button fxFlex color="accent" fxFlexAlign="center" type="button" mat-raised-button (click)="createTask()"
+                   style="width: 95%; margin: 10px">
+             <mat-icon>add</mat-icon>
+           </button>
+
+
+      </mat-tab>
     </mat-tab-group>
-    <button mat-raised-button type="submit">Save</button>
+    <span fxFlexFill></span>
+    <button mat-raised-button color="primary" fxFlexAlign="auto" type="submit" style="width: 100%; margin: 10px">Save</button>
   </form>
 </div>

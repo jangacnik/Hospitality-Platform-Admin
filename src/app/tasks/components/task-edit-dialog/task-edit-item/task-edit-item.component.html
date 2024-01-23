@@ -1,0 +1,32 @@
+<mat-card style="margin: 10px">
+  <mat-card-header fxLayout="column">
+    <mat-card-title>
+      <mat-form-field fxFlex="90" *ngIf="editing">
+        <input matInput  type="text" [(ngModel)]="taskInfo.title">
+      </mat-form-field>
+      <h3 *ngIf="!editing">{{taskInfo.title}}</h3>
+      <span fxFlex></span>
+      <button type="button" mat-icon-button (click)="onClick()"><mat-icon>{{editing ? "save": "edit"}}</mat-icon></button>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <span *ngIf="!editing" fxFlex>{{taskInfo.description}}</span>
+    <mat-form-field fxFlex *ngIf="editing">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="taskInfo.description" ></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions style="margin: 10px">
+    <ng-container>
+      <mat-label>Takeover</mat-label>
+      <mat-slide-toggle [disabled]="!editing" style="margin-left: 5px" color="accent" [(ngModel)]="taskInfo.takeover"></mat-slide-toggle>
+    </ng-container>
+    <span fxFlex="10"></span>
+    <ng-container>
+      <mat-label>Active</mat-label>
+      <mat-slide-toggle [disabled]="!editing" style="margin-left: 5px" color="primary" [(ngModel)]="taskInfo.active"></mat-slide-toggle>
+    </ng-container>
+    <span fxFlex></span>
+    <button mat-icon-button color="warn" type="button" (click)="onDelteTask()"><mat-icon>delete</mat-icon></button>
+  </mat-card-actions>
+</mat-card>

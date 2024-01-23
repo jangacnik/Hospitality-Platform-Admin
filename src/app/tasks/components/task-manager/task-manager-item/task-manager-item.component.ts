@@ -18,7 +18,8 @@ export class TaskManagerItemComponent {
 
   onEditClicked() {
     this.matDialog.open(TaskEditDialogComponent, {
-      width: "500px",
+      width: "600px",
+      // disableClose: true,
       data: {
         taskInfo: this.task
       }

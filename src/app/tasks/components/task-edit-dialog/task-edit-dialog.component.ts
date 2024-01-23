@@ -1,8 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {TaskService} from "../../services/task.service";
 import {DepartmentService} from "../../../foodtracker/service/department.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {TaskTemplateModel} from "../../models/TaskTemplateModel";
+import {ScrollIntoViewDirective} from "../../../directives/scroll-into-view.directive";
+import {delay} from "rxjs";
 
 @Component({
   selector: 'app-task-edit-dialog',
@@ -149,7 +152,7 @@ export class TaskEditDialogComponent implements OnInit {
       label: "Sunday"
     },
   ];
-
+  selectedItem: any = undefined;
   weekDaysMonth = [
     {
       id: "MONDAY",
@@ -207,6 +210,7 @@ export class TaskEditDialogComponent implements OnInit {
       repeatOnMonthDay: new FormControl(null)
     })
   });
+  editNew = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private taskService: TaskService,
@@ -314,4 +318,19 @@ export class TaskEditDialogComponent implements OnInit {
       }
     }
   }
+selectedTask: any;
+  createTask() {
+    this.taskForm.controls.tasks.value.unshift(new TaskTemplateModel(true));
+    this.taskForm.updateValueAndValidity();
+    setTimeout(() => {
+      this.selectedTask = this.taskForm.controls.tasks.value[0];
+      this.editNew = true;
+    },50);
+  }
+
+  deleteTask(index) {
+    this.editNew = false;
+      this.taskForm.controls.tasks.value.splice(index,1);
+  }
+
 }
