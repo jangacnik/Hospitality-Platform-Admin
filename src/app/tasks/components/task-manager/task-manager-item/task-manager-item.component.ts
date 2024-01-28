@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {TaskEditDialogComponent} from "../../task-edit-dialog/task-edit-dialog.component";
+import {TaskEditDialogComponent} from "../../../dialogs/task-edit-dialog/task-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DepartmentService} from "../../../../foodtracker/service/department.service";
-import {TaskService} from "../../../services/task.service";
+import {TaskTemplateService} from "../../../services/task-template.service";
 import {
   ConfirmationDialogComponent
 } from "../../../../foodtracker/dialogs/confirmation-dialog/confirmation-dialog.component";
@@ -17,7 +17,7 @@ export class TaskManagerItemComponent {
   @Input() task: any;
   @Output() updateEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private matDialog: MatDialog, private taskService: TaskService, private dialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private taskService: TaskTemplateService, private dialog: MatDialog) {
   }
 
   onEditClicked() {

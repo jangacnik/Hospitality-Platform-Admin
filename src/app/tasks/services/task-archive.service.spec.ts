@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TaskTemplateService } from './task-template.service';
+import { TaskArchiveService } from './task-archive.service';
 
-describe('TaskService', () => {
-  let service: TaskTemplateService;
+describe('TaskArchiveService', () => {
+  let service: TaskArchiveService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TaskTemplateService);
+    service = TestBed.inject(TaskArchiveService);
   });
 
   it('should be created', () => {

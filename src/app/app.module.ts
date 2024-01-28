@@ -61,7 +61,7 @@ const routes: Routes = [
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true,},
-    {provide: LOCALE_ID, useValue: "no"},
+    {provide: LOCALE_ID, useValue: "en-GB"},
     DatePipe,
     FoodTrackerRestService
   ],

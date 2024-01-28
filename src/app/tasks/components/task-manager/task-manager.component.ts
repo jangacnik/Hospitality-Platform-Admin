@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {TaskService} from "../../services/task.service";
+import {TaskTemplateService} from "../../services/task-template.service";
 import {MatDialog} from "@angular/material/dialog";
-import {TaskEditDialogComponent} from "../task-edit-dialog/task-edit-dialog.component";
+import {TaskEditDialogComponent} from "../../dialogs/task-edit-dialog/task-edit-dialog.component";
 import {Observable, Subscription} from "rxjs";
 
 @Component({
@@ -14,7 +14,7 @@ export class TaskManagerComponent implements OnInit, OnDestroy{
   taskTemplateList = [];
   @Input() updateSubject: Observable<any>;
   private eventsSubscription: Subscription;
-  constructor(private taskService: TaskService,
+  constructor(private taskService: TaskTemplateService,
                private matDialog: MatDialog) {
   }
 

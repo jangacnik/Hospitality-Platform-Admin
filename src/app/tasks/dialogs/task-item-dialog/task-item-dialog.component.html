@@ -1,0 +1,26 @@
+
+  <div mat-dialog-title fxLayout="column">
+    <div fxLayout="row">
+      <span style="font-size: larger">{{task.title }}</span>
+      <span fxFlex></span>
+      <mat-chip-set>
+        <mat-chip *ngIf="task.completed"
+                  matTooltip="Completed by: {{task.completedBy.name}} {{task.completedBy.surname}} at {{task.completionTime | date: 'dd.MM.yyyy, h:mm'}}"
+                  color="primary" class="completed">Completed
+        </mat-chip>
+        <mat-chip *ngIf="!task.completed">Open
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+    <span style="font-size: medium"><mat-icon style="color: #ddd0c0" matTooltip="Assignee">assignment_ind</mat-icon> {{task.assignee? task.assignee.name + ' ' + task.assignee.surname : 'None'}}</span>
+    <span *ngIf="task.completedBy" style="font-size: medium"><mat-icon color="primary" matTooltip="Completed by">task</mat-icon> {{task.completedBy? task.completedBy.name + ' ' + task.completedBy.surname : '/'}} ({{task.completionTime | date: 'dd.MM.yyyy, h:mm'}})</span>
+
+  </div>
+  <div mat-dialog-content fxLayout="column">
+    <span style="font-size: large">Description:</span>
+    <span style="font-size: medium">{{task.description}}</span>
+  </div>
+  <div mat-dialog-actions>
+    <span fxFlex></span>
+    <button mat-flat-button (click)="closeDialog()">Close</button>
+  </div>

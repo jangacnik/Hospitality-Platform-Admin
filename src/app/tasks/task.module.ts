@@ -5,7 +5,7 @@ import {NgIcon} from "@ng-icons/core";
 import {FlexModule} from "@angular/flex-layout";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TaskDashboardComponent} from "./components/task-dashboard/task-dashboard.component";
-import {TaskEditDialogComponent} from "./components/task-edit-dialog/task-edit-dialog.component";
+import {TaskEditDialogComponent} from "./dialogs/task-edit-dialog/task-edit-dialog.component";
 import {TaskBrowserItemComponent} from "./components/task-browser/task-browser-item/task-browser-item.component";
 import {TaskManagerItemComponent} from "./components/task-manager/task-manager-item/task-manager-item.component";
 import { TaskManagerComponent } from './components/task-manager/task-manager.component';
@@ -14,9 +14,11 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {NgxMatTimepickerComponent, NgxMatTimepickerDirective} from "ngx-mat-timepicker";
-import { TaskEditItemComponent } from './components/task-edit-dialog/task-edit-item/task-edit-item.component';
+import { TaskEditItemComponent } from './dialogs/task-edit-dialog/task-edit-item/task-edit-item.component';
 import {AppModule} from "../app.module";
 import {ScrollIntoViewDirective} from "../directives/scroll-into-view.directive";
+import { TaskItemComponent } from './components/task-browser/task-browser-item/task-item/task-item.component';
+import { TaskItemDialogComponent } from './dialogs/task-item-dialog/task-item-dialog.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {ScrollIntoViewDirective} from "../directives/scroll-into-view.directive"
     TaskManagerComponent,
     TaskBrowserComponent,
     TaskEditItemComponent,
-    ScrollIntoViewDirective
+    ScrollIntoViewDirective,
+    TaskItemComponent,
+    TaskItemDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,7 @@ import {ScrollIntoViewDirective} from "../directives/scroll-into-view.directive"
     TaskBrowserItemComponent,
     TaskEditDialogComponent,
     TaskDashboardComponent
-  ],
+  ]
 })
 export class TaskModule {
 }

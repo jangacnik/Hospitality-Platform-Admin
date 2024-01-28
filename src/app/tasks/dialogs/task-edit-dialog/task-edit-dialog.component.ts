@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {TaskService} from "../../services/task.service";
+import {TaskTemplateService} from "../../services/task-template.service";
 import {DepartmentService} from "../../../foodtracker/service/department.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {TaskTemplateModel} from "../../models/TaskTemplateModel";
@@ -213,7 +213,7 @@ export class TaskEditDialogComponent implements OnInit {
   editNew = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private taskService: TaskService,
+              private taskService: TaskTemplateService,
               private departmentService: DepartmentService,
               private dialogRef: MatDialogRef<TaskEditDialogComponent>) {
     if(data && data.taskInfo) {

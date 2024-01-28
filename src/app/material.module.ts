@@ -14,6 +14,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSortModule} from "@angular/material/sort";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {CoreModule} from "@angular/flex-layout";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 @NgModule({
@@ -34,7 +39,11 @@ import {MatSortModule} from "@angular/material/sort";
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatCardModule,
@@ -52,7 +61,11 @@ import {MatSortModule} from "@angular/material/sort";
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule {

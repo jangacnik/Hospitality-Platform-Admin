@@ -1,1 +1,27 @@
-<p>task-browser-item works!</p>
+<mat-card fxFlex fxFlexAlign="center">
+  <div fxLayoutGap="10px">
+    <mat-card-header fxLayout="column" fxLayoutGap="10px">
+      <mat-card-title fxLayout="row">
+        <span>
+        {{task.title}}</span>
+      </mat-card-title>
+      <span>Completed: {{getNumberOfCompletedTasks()}} / {{task.tasks.length}}</span>
+    </mat-card-header>
+    <mat-card-content style="padding: 10px;" fxLayout="column" fxLayoutGap="15px">
+      <mat-chip-listbox fxLayout="row" >
+        <mat-chip *ngFor="let dep of task.departments">{{dep.departmentName}}</mat-chip>
+      </mat-chip-listbox>
+      <mat-expansion-panel style="box-shadow: none">
+        <mat-expansion-panel-header>Tasks</mat-expansion-panel-header>
+        <mat-selection-list style="overflow-y: auto" fxLayout="column" fxLayoutGap="5px">
+          <mat-list-item (click)="openTaskItem(tk)" style="border-bottom: 1px solid #b68d58; height: 100%" *ngFor="let tk of task.tasks">
+            <app-task-item [taskItem]="tk"></app-task-item>
+          </mat-list-item>
+        </mat-selection-list>
+      </mat-expansion-panel>
+    </mat-card-content>
+    <mat-card-footer style="padding:10px" fxLayout="row" fxLayoutGap="15px">
+    </mat-card-footer>
+  </div>
+
+</mat-card>

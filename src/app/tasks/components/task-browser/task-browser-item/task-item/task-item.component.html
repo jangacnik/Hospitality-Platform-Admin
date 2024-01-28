@@ -1,0 +1,14 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxLayout="row">
+    <span style="font-size: large">{{taskItem.title }}</span>
+    <span fxFlex></span>
+    <mat-chip-set>
+      <mat-chip *ngIf="taskItem.completed"
+                matTooltip="Completed by: {{taskItem.completedBy.name}} {{taskItem.completedBy.surname}} at {{taskItem.completionTime | date: 'dd.MM.yyyy, h:mm'}}"
+                color="primary" class="completed">Completed
+      </mat-chip>
+      <mat-chip *ngIf="!taskItem.completed">Open
+      </mat-chip>
+    </mat-chip-set>
+  </div>
+</div>

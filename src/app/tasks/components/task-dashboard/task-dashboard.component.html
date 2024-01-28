@@ -1,19 +1,31 @@
+<div fxFlexFill fxLayout="column" fxLayoutGap="10px">
+  <mat-toolbar fxFlex="8" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+    <button style="height: 100%" fxFlex="15" (click)="onManagerClicked()" mat-button>Manager</button>
+    <button style="height: 100%" fxFlex="15" (click)="onBrowserClicked()" mat-button>Task Browser</button>
+    <span fxFlex></span>
+    <button mat-raised-button *ngIf="showManager" (click)="onCreateClicked()">Create Task list</button>
+    <div *ngIf="showBrowser" fxFlex fxLayoutGap="20px" fxLayoutAlign="center end" fxLayout="column">
+      <mat-form-field floatLabel="always">
+        <input [max]="today" [(ngModel)]="displayDate" matInput [matDatepicker]="datepicker"
+               (dateChange)="onDateChange()">
+        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+  </mat-toolbar>
 
-  <div fxFlexFill fxLayout="column" fxLayoutGap="10px">
-    <mat-toolbar fxFlex="8" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-      <button fxFlex="15" (click)="onManagerClicked()" mat-button>Manager</button>
-      <button fxFlex="15" (click)="onBrowserClicked()" mat-button>Task Browser</button>
-      <span fxFlex></span>
-      <button mat-raised-button *ngIf="showManager" (click)="onCreateClicked()">Create Task list</button>
-    </mat-toolbar>
-
-    <div fxFlex="92" style="overflow: auto">
-      <div fxFlex style="margin: 10px; overflow: auto; padding-bottom: 10px" *ngIf="showManager">
-        <app-task-manager [updateSubject]="eventsSubject"></app-task-manager>
-      </div>
-      <div fxFlex *ngIf="showBrowser" style="margin: 10px; overflow: auto">
-        <app-task-browser></app-task-browser>
-      </div>
+  <div fxFlex="92" style="overflow: auto">
+    <div fxFlex style="margin: 10px; overflow: auto; padding-bottom: 10px" *ngIf="showManager">
+      <app-task-manager [updateSubject]="templateSubject"></app-task-manager>
+    </div>
+    <div fxFlex style="margin: 10px; overflow: auto; padding-bottom: 10px" *ngIf="showBrowser">
+      <app-task-browser [updateSubject]="archiveSubject"></app-task-browser>
     </div>
   </div>
+</div>
 

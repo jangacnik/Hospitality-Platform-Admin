@@ -6,7 +6,7 @@ import {Subject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class TaskTemplateService {
   constructor(private http: HttpClient) { }
 
   getTaskTemplates() {
