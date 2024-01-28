@@ -300,7 +300,7 @@ export class TaskEditDialogComponent implements OnInit {
         this.prepareTaskForUpdate();
         this.taskService.putTaskTemplate(this.taskInfo).subscribe(
           res => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           }
         );
       } else {
@@ -312,7 +312,7 @@ export class TaskEditDialogComponent implements OnInit {
         }
         this.taskService.postTaskTemplate(taskInf).subscribe(
           res => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           }
         );
       }

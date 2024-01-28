@@ -9,7 +9,7 @@
 
     <div fxFlex="92" style="overflow: auto">
       <div fxFlex style="margin: 10px; overflow: auto; padding-bottom: 10px" *ngIf="showManager">
-        <app-task-manager></app-task-manager>
+        <app-task-manager [updateSubject]="eventsSubject"></app-task-manager>
       </div>
       <div fxFlex *ngIf="showBrowser" style="margin: 10px; overflow: auto">
         <app-task-browser></app-task-browser>

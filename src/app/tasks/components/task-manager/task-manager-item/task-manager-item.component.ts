@@ -1,7 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TaskEditDialogComponent} from "../../task-edit-dialog/task-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DepartmentService} from "../../../../foodtracker/service/department.service";
+import {TaskService} from "../../../services/task.service";
+import {
+  ConfirmationDialogComponent
+} from "../../../../foodtracker/dialogs/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-task-manager-item',
@@ -11,18 +15,48 @@ import {DepartmentService} from "../../../../foodtracker/service/department.serv
 export class TaskManagerItemComponent {
 
   @Input() task: any;
+  @Output() updateEvent: EventEmitter<any> = new EventEmitter<any>();
 
-
-  constructor(private matDialog: MatDialog, private departmentService: DepartmentService) {
+  constructor(private matDialog: MatDialog, private taskService: TaskService, private dialog: MatDialog) {
   }
 
   onEditClicked() {
-    this.matDialog.open(TaskEditDialogComponent, {
+    let dialogRef = this.matDialog.open(TaskEditDialogComponent, {
       width: "600px",
       // disableClose: true,
       data: {
         taskInfo: this.task
       }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.updateEvent.emit();
+      }
+    })
+  }
+
+  private deleteTaskList() {
+    this.taskService.deleteTaskTemplate(this.task.id).subscribe(
+      () => {
+        this.updateEvent.emit();
+      }
+    )
+  }
+
+  onDeleteTask(): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        title: "Delete Task list: " + this.task.title + " ",
+        msg: "Are you sure you want to delete the task list?"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteTaskList();
+      }
+      dialogRef = null;
     });
   }
 }

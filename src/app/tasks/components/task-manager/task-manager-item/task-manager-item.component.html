@@ -1,9 +1,15 @@
 <mat-card fxFlex fxFlexAlign="center">
   <div fxLayoutGap="10px">
     <mat-card-header fxLayout="column" fxLayoutGap="10px">
-      <mat-card-title>
-        {{task.title}}
-      </mat-card-title>
+      <mat-card-title fxLayout="row">
+        <span>
+        {{task.title}}</span>
+        <span fxFlex></span>
+        <span>
+          <mat-icon color="{{task.active? 'primary': 'warn'}}" [matTooltip]="task.active? 'Task list active': 'Task list inactive'">{{task.active? 'task': 'unpublished'}}</mat-icon>
+        </span>
+
+         </mat-card-title>
 <!--      <span>{{task.description ? task.description : "No description" }}</span>-->
     </mat-card-header>
     <mat-card-content style="padding: 10px">
@@ -14,7 +20,7 @@
     <mat-card-footer style="padding:10px" fxLayout="row" fxLayoutGap="15px">
       <button mat-button (click)="onEditClicked()">Edit</button>
       <span fxFlex></span>
-      <button mat-button>Delete</button>
+      <button mat-button (click)="onDeleteTask()">Delete</button>
     </mat-card-footer>
   </div>
 

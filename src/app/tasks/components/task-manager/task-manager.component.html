@@ -2,7 +2,7 @@
     <mat-list fxFlexFill fxLayoutGap="20px" fxLayoutAlign="center center" fxLayout="column">
       <mat-list-item *ngFor="let task of taskTemplateList" style="align-items: center; align-self: center" fxFlexFill fxLayoutAlign="center center">
         <div fxFlex="25"></div>
-        <app-task-manager-item fxFlex="50" [task]="task"></app-task-manager-item>
+        <app-task-manager-item fxFlex="50" [task]="task" (updateEvent)="getTaskList()"></app-task-manager-item>
       </mat-list-item>
     </mat-list>
 </div>

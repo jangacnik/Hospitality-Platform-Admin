@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {TaskEditDialogComponent} from "../task-edit-dialog/task-edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {TaskService} from "../../services/task.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-task-dashboard',
@@ -10,8 +12,9 @@ import {MatDialog} from "@angular/material/dialog";
 export class TaskDashboardComponent {
   showManager = true;
   showBrowser = false;
+  eventsSubject: Subject<void> = new Subject<void>();
 
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private taskService: TaskService) {
   }
   onManagerClicked() {
     this.showBrowser = false;
@@ -23,9 +26,15 @@ export class TaskDashboardComponent {
   }
 
   onCreateClicked() {
-    this.matDialog.open(TaskEditDialogComponent, {
+    let dialogRef = this.matDialog.open(TaskEditDialogComponent, {
       width: "500px"
     });
+    dialogRef.afterClosed().subscribe((res) => {
+      if(res) {
+        this.eventsSubject.next();
+      }
+    })
+
   }
 
 }
