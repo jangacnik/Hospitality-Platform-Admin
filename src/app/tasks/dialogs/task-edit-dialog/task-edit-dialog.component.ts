@@ -250,7 +250,7 @@ export class TaskEditDialogComponent implements OnInit {
     }
     this.taskInfo.active = this.taskForm.controls.active.value;
     this.taskInfo.activeFrom = this.taskForm.controls.activeFrom.value;
-    this.taskInfo.tasks = this.taskForm.controls.tasks.value;
+    this.taskInfo.tasks = this.taskForm.controls.tasks.value.filter((tsk) => tsk.title);
     this.taskInfo.repeat.repeatType = this.taskForm.controls.repeat.controls.repeatType.value;
     this.taskInfo.repeat.repeatEvery = this.taskForm.controls.repeat.controls.repeatEvery.value;
     this.taskInfo.repeat.repeatOnWeekDays = this.taskForm.controls.repeat.controls.repeatOnWeekDays.value;
@@ -305,6 +305,7 @@ export class TaskEditDialogComponent implements OnInit {
         );
       } else {
         let taskInf = this.taskForm.value;
+        taskInf.tasks = taskInf.tasks.filter((tsk) => tsk.title);
         let deps = this.departmentList.filter(d => taskInf.departments.includes(d.id));
         taskInf.departments = [];
         for(let dp of deps) {

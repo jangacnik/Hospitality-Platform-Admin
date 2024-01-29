@@ -23,7 +23,6 @@ export class TaskManagerItemComponent {
   onEditClicked() {
     let dialogRef = this.matDialog.open(TaskEditDialogComponent, {
       width: "600px",
-      // disableClose: true,
       data: {
         taskInfo: this.task
       }
