@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "./auth/service/authentication.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {AuthenticationService} from "./auth/service/authentication.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'resortPlatformAdmin';
 
   constructor(private authService: AuthenticationService) {
@@ -18,5 +18,11 @@ export class AppComponent {
 
   isLoggedIn() {
     return this.authService.isLoggedIn();
+  }
+
+  ngOnInit(): void {
+    if(!this.isLoggedIn()) {
+      this.logout();
+    }
   }
 }

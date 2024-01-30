@@ -19,6 +19,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {CoreModule} from "@angular/flex-layout";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatExpansionModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonToggleModule
   ],
   exports: [
     MatCardModule,
@@ -65,7 +67,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatExpansionModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule {
