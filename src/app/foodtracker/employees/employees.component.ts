@@ -70,12 +70,12 @@ export class EmployeesComponent implements OnInit, AfterViewChecked, AfterViewIn
     if (dep && name) {
       this.employees = this.employeesOld.filter((val) => {
         return (val.lastName + val.firstName).toLowerCase().includes(<string>name?.toLowerCase()) &&
-          val.departments.includes(dep)
+          val.departments.filter(d => d.departmentName === dep).length > 0
+
       });
     } else if (dep) {
-      this.employees = this.employeesOld.filter((val) => {
-        return val.departments.includes(dep)
-      });
+      this.employees = this.employeesOld.filter(fd=> fd.departments.filter(d => d.departmentName === dep).length > 0);
+
     } else if (name) {
       this.employees = this.employeesOld.filter((val) => {
         return (val.lastName + val.firstName).toLowerCase().includes(<string>name?.toLowerCase())

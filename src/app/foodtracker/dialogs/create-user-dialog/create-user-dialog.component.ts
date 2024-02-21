@@ -37,6 +37,9 @@ export class CreateUserDialogComponent implements OnInit {
     });
   }
 
+  public objectComparisonFunction = function( option, value ) : boolean {
+    return option.departmentId === value.departmentId;
+  }
   ngOnInit(): void {
   }
 

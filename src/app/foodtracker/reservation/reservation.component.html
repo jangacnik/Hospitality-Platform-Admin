@@ -34,7 +34,7 @@
       </ng-container>
       <ng-container matColumnDef="department">
         <th *matHeaderCellDef mat-header-cell> Departments</th>
-        <td *matCellDef="let element" mat-cell> {{element.departments ? element.departments.join(", ") : ""}} </td>
+        <td *matCellDef="let element" mat-cell>  <span *ngFor="let d of element.departments"> {{d.departmentName}}</span> </td>
       </ng-container>
       <ng-container matColumnDef="meals">
         <th *matHeaderCellDef mat-header-cell> Meals</th>

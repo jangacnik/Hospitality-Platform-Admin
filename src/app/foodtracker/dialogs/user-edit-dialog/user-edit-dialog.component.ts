@@ -20,7 +20,7 @@ export class UserEditDialogComponent implements OnInit {
     firstName: FormControl<string | null>;
     lastName: FormControl<string | null>;
     roles: FormControl<string[] | null>;
-    departments: FormControl<any[] | null>;
+    departments: FormControl<DepartmentListItem[]>;
     email: FormControl<string | null>;
     employeeNumber: FormControl<string | null>;
     oldEmail: FormControl<string | null>;
@@ -38,7 +38,7 @@ export class UserEditDialogComponent implements OnInit {
     this.user = data.user;
     this.user.oldEmail = this.user.email;
   }
-
+dataReady = false;
   ngOnInit(): void {
     this.editForm = new FormGroup({
       id: new FormControl(this.user.id, [Validators.required]),
@@ -50,8 +50,12 @@ export class UserEditDialogComponent implements OnInit {
       roles: new FormControl(this.user.roles, [Validators.required]),
       oldEmail: new FormControl(this.user.oldEmail),
     });
+    this.dataReady = true;
   }
 
+  public objectComparisonFunction = function( option, value ) : boolean {
+    return option.departmentId === value.departmentId;
+  }
   onSubmit() {
     this.foodtrackerService.updateUserPersonalInfo(this.editForm.value).subscribe(
       (success) => {
@@ -82,4 +86,6 @@ export class UserEditDialogComponent implements OnInit {
       this.user?.departments.splice(index, 1);
     }
   }
+
+  protected readonly console = console;
 }

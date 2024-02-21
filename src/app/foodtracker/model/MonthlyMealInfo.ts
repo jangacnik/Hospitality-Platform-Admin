@@ -1,5 +1,5 @@
 export class MonthlyMealInfo {
-  constructor(employeeNumber: string, name: string, department: string[], mealCountUsed: number, mealCountReserved: number, mealTotalPrice: number) {
+  constructor(employeeNumber: string, name: string, department: any[], mealCountUsed: number, mealCountReserved: number, mealTotalPrice: number) {
     this._employeeNumber = employeeNumber;
     this._name = name;
     this._department = department;
@@ -28,13 +28,13 @@ export class MonthlyMealInfo {
     this._name = value;
   }
 
-  private _department: string[];
+  private _department: any[];
 
-  get department(): string[] {
+  get department(): any[] {
     return this._department;
   }
 
-  set department(value: string[]) {
+  set department(value: any[]) {
     this._department = value;
   }
 

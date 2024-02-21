@@ -23,10 +23,10 @@ export class DepartmentService {
   public getDepartmentNames(refreshDepartments: boolean): Promise<DepartmentListItem[]> {
     return new Promise((resolve, reject) => {
       if (this._departmentsList == undefined || refreshDepartments) {
-        this.getDepartmentsRequest().subscribe((data) => {
+        this.getDepartmentsShortRequest().subscribe((data) => {
           this._departmentsList = [];
           for (let x of data) {
-            this._departmentsList.push(new DepartmentListItem(x, x));
+            this._departmentsList.push(new DepartmentListItem(x.departmentId, x.departmentName));
           }
           resolve(this._departmentsList)
         });
@@ -44,6 +44,11 @@ export class DepartmentService {
   private getDepartmentsRequest() {
     return this.http.get<any>(enviroment.baseUrlTest + "department/all/names");
   }
+
+  private getDepartmentsShortRequest() {
+    return this.http.get<any>(enviroment.baseUrlTest + "department/all/short");
+  }
+
   public getAllDepartmentsRequest() {
     return this.http.get<any>(enviroment.baseUrlTest + "department/all");
   }

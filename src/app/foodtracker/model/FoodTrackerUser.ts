@@ -1,13 +1,16 @@
+import {DepartmentListItem} from "./DepartmentListItem";
+
 export class FoodTrackerUser {
   id: string;
   lastName: string;
   firstName: string;
   email: string;
   employeeNumber: string;
-  departments: string[];
+  departments: DepartmentListItem[];
   roles: string[];
+  private _oldEmail: string;
 
-  constructor(lastName: string, firstName: string, email: string, employeeNumber: string, departments: string[], roles: string[], oldEmail: string) {
+  constructor(lastName: string, firstName: string, email: string, employeeNumber: string, departments: any, roles: string[], oldEmail: string) {
     this.lastName = lastName;
     this.firstName = firstName;
     this.email = email;
@@ -17,10 +20,8 @@ export class FoodTrackerUser {
     this._oldEmail = oldEmail;
   }
 
-  private _oldEmail: string;
 
   set oldEmail(value: string) {
     this._oldEmail = value;
   }
-
 }

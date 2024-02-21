@@ -10,8 +10,8 @@
         <mat-form-field *ngIf="departmentList !== undefined">
           <mat-label>Department</mat-label>
           <mat-select formControlName="searchDepartment">
-            <mat-option *ngFor="let dep of departmentList" [value]="dep.name">
-              {{dep.name}}
+            <mat-option *ngFor="let dep of departmentList" [value]="dep.departmentName">
+              {{dep.departmentName}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -54,7 +54,7 @@
       </ng-container>
       <ng-container matColumnDef="department">
         <th *matHeaderCellDef mat-header-cell> Departments</th>
-        <td *matCellDef="let element" mat-cell> {{element.departments.join(", ")}} </td>
+        <td *matCellDef="let element" mat-cell> <span *ngFor="let d of element.departments"> {{d.departmentName}}</span></td>
       </ng-container>
       <ng-container matColumnDef="options">
         <th *matHeaderCellDef mat-header-cell></th>

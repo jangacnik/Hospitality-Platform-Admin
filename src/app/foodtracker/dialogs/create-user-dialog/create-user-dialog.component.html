@@ -26,8 +26,9 @@
 
       <mat-form-field fxFlex style="width: 100%">
         <mat-label>Departments</mat-label>
-        <mat-select formControlName="departments" multiple>
-          <mat-option *ngFor="let d of departmentList" [value]="d.id">{{d.id}}</mat-option>
+        <mat-select formControlName="departments" multiple
+                    [compareWith]="objectComparisonFunction">
+          <mat-option *ngFor="let depart of departmentList" [value]="depart">{{depart.departmentName}}</mat-option>
         </mat-select>
       </mat-form-field>
 
