@@ -88,14 +88,14 @@
         </div>
 
       </mat-tab>
-      <mat-tab fxFlex style="height: 100%; width: 100%;" label="Tasks" fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+      <mat-tab fxFlex label="Tasks" fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
        <mat-list #list style="width: 100%; max-height: 550px; display: block; overflow-y:  auto;">
              <mat-list-item role="listitem"
                             style="width: 100%; height: 490px;"
                             fxFlexFill
                             *ngFor="let task of taskForm.controls.tasks.value; index as i;">
                <app-task-edit-item style="width: 100%" fxFlex [taskInfo]="task" [editing]="i === 0 && editNew"
-                                   [appScrollIntoView]="task === selectedTask" [index]="i"
+                                   [appScrollIntoView]="task === selectedTask" [index]=" i"
                (deleteEvent)="deleteTask($event)" (editingEvent)="editNew = false"></app-task-edit-item>
                   </mat-list-item>
            </mat-list>

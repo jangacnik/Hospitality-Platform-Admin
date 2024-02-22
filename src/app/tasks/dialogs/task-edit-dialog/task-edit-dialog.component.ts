@@ -237,7 +237,6 @@ export class TaskEditDialogComponent implements OnInit {
     this.taskForm.controls.repeat.controls.repeatDayEnumValue.setValue(taskInfo.repeat.repeatDayEnumValue);
     this.taskForm.controls.repeat.controls.repeatOnMonthDay.setValue(taskInfo.repeat.repeatOnMonthDay);
     this.taskForm.updateValueAndValidity();
-    console.log(this.taskForm);
   }
 
   prepareTaskForUpdate() {
@@ -263,6 +262,7 @@ export class TaskEditDialogComponent implements OnInit {
       this.departmentList = data;
     });
 
+
   }
 
   onRepeatToggle() {
@@ -283,15 +283,12 @@ export class TaskEditDialogComponent implements OnInit {
     this.taskForm.updateValueAndValidity();
   }
 
-  test() {
-  }
 
   resetMonthly() {
     this.taskForm.controls.repeat.controls.repeatDayEnum.setValue(null);
     this.taskForm.controls.repeat.controls.repeatDayEnumValue.setValue(null);
     this.taskForm.controls.repeat.controls.repeatOnMonthDay.setValue(null);
     this.taskForm.updateValueAndValidity();
-    this.test();
   }
 
   onSubmit() {

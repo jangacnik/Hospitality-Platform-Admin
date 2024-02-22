@@ -27,7 +27,6 @@ export class LoginComponent {
     if (email && pwd) {
       this.authService.login(email, pwd).subscribe({
         next: (res) => {
-          console.log(res);
           this.authService.saveToken(res);
           this.router.navigate(['home']);
         }

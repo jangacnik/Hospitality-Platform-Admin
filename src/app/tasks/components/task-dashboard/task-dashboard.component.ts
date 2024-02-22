@@ -50,6 +50,5 @@ export class TaskDashboardComponent implements OnInit{
   onDateChange() {
     this.displayDate = this.datePipe.transform(this.displayDate, 'yyyy-MM-dd');
     this.archiveSubject.next(this.displayDate);
-    console.log(this.displayDate);
   }
 }
