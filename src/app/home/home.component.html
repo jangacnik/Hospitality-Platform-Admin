@@ -1,13 +1,100 @@
-<div fxFlexFill fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
-  <mat-card (click)="onFoodTrackerClicked()" fxFlex="10"
-            fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" style="width: 25%;">
-    <mat-icon fxFlex fxLayoutAlign="end center" style="font-size: xx-large; width: 100%; height: 100%">restaurant
-    </mat-icon>
-    <mat-label fxFlex="60" style="font-size: large; width: 100%">Food Tracker</mat-label>
-  </mat-card>
-  <mat-card fxFlex="10" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" style="width: 25%;" (click)="onTaskClicked()">
-    <mat-icon fxFlex fxLayoutAlign="end center" style="font-size: xx-large; width: 100%; height: 100%;">task
-    </mat-icon>
-    <mat-label fxFlex="60" style="font-size: large; width: 100%">Task Manager</mat-label>
-  </mat-card>
+<div fxFlexFill fxLayout="column">
+  <mat-toolbar class="toolbar-container" fxFlex="12" fxLayoutGap="20px">
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img
+      alt="Vestlia Resort"
+      src="/assets/logo/VR_toolbar.svg"
+      width="200rem"
+    />
+    <span fxFlex></span>
+    <ng-container *ngIf="isLoggedIn()">
+      <button mat-button routerLink="/user" fxLayoutGap="12px">
+        <span class="header-text">My Profile </span>
+        <mat-icon iconPositionEnd class="header-icon">person_outlined</mat-icon>
+      </button>
+      <button (click)="logout()" mat-button fxLayoutGap="12px">
+        <span class="header-text">Log-Out</span>
+        <mat-icon iconPositionEnd class="header-icon">key</mat-icon>
+      </button>
+    </ng-container>
+  </mat-toolbar>
+  <div class="main" fxFlex style="overflow: hidden">
+    <mat-drawer-container class="drawer-container">
+      <!--Sidenav Drawer-->
+      <mat-drawer #drawer mode="side" opened class="sidenav">
+        <mat-list>
+          <div mat-subheader class="sidenav-title">Vestlia Resort</div>
+          <div class="sidenav-content">
+            <a
+              mat-list-item
+              class="nav-link"
+              [routerLink]="['/home']"
+              [routerLinkActive]="['active']"
+            >
+              <mat-icon matListItemIcon class="material-icons-outlined"
+                >home</mat-icon
+              >
+              <div matListItemTitle>Vestlia Cockpit</div>
+            </a>
+            <a
+              mat-list-item
+              class="nav-link"
+              [routerLink]="['/users']"
+              [routerLinkActive]="['active']"
+            >
+              <mat-icon matListItemIcon class="material-icons-outlined"
+                >group</mat-icon
+              >
+              <div matListItemTitle>Users</div>
+            </a>
+          </div>
+
+          <div mat-subheader class="sidenav-title">FUNCTIONS</div>
+          <div class="sidenav-content">
+            <a
+              mat-list-item
+              class="nav-link"
+              [routerLink]="['/task']"
+              [routerLinkActive]="['active']"
+            >
+              <mat-icon matListItemIcon class="material-icons-outlined"
+                >task</mat-icon
+              >
+              <div matListItemTitle>Task Lists</div>
+            </a>
+            <a
+              mat-list-item
+              class="nav-link"
+              [routerLink]="['/food']"
+              [routerLinkActive]="['active']"
+            >
+              <mat-icon matListItemIcon class="material-icons-outlined"
+                >lunch_dining</mat-icon
+              >
+              <div matListItemTitle>Food Tracker</div>
+            </a>
+          </div>
+
+          <div mat-subheader class="sidenav-title">OTHER</div>
+          <div class="sidenav-content">
+            <a
+              mat-list-item
+              class="nav-link"
+              [routerLink]="['/settings']"
+              [routerLinkActive]="['active']"
+            >
+              <mat-icon matListItemIcon>settings</mat-icon>
+              <div matListItemTitle>Settings</div>
+            </a>
+          </div>
+        </mat-list>
+      </mat-drawer>
+      <!--Sidenav Content-->
+      <mat-drawer-content>
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
 </div>

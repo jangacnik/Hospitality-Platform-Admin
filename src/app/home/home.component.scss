@@ -1,0 +1,92 @@
+@import "../../styles.scss";
+
+mat-toolbar {
+  background-color: #ccaf8a;
+}
+
+.main {
+  background-color: #e2d8ca;
+}
+
+.toolbar-container {
+  background-color: white;
+}
+
+.header-text {
+  font-family: "baskerville";
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+}
+
+.header-icon {
+  transform: scale(2.5);
+  color: #ccaf8a;
+}
+
+.drawer-container {
+  height: 100%;
+}
+
+.sidenav {
+  padding: 20px;
+  width: 300px;
+}
+
+.sidenav-title {
+  font-family: "baskerville";
+  font-weight: 900;
+  color: #414141 !important;
+  font-size: 14px;
+}
+
+.sidenav-content {
+  margin-bottom: 32px;
+}
+
+.nav-link {
+  background: none;
+  height: 32px !important;
+  margin-bottom: 12px;
+
+  .mat-icon {
+    margin-right: 16px;
+    transform: scale(1.3);
+  }
+  div {
+    font-family: "worksans-semibold";
+  }
+}
+
+.nav-link:hover {
+  .mat-icon {
+    color: #ccaf8a;
+  }
+  div {
+    color: #ccaf8a;
+  }
+  cursor: pointer;
+}
+
+.nav-link::before {
+  content: none !important;
+}
+
+.active {
+  background: linear-gradient(
+    90deg,
+    rgba(199, 160, 89, 0.45) 0%,
+    rgba(225, 205, 175, 0) 66%
+  );
+  border-radius: 10px !important;
+  .mat-icon {
+    color: #ccaf8a;
+  }
+  div {
+    color: #ccaf8a;
+  }
+}
+
+.mat-drawer-content {
+  background-color: #f4f2ee;
+}

@@ -1,23 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {FoodTrackerRestService} from "../foodtracker/service/food-tracker-rest.service";
+import { Component, OnInit } from '@angular/core';
+import { FoodTrackerRestService } from '../foodtracker/service/food-tracker-rest.service';
+import { AuthenticationService } from '../auth/service/authentication.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private fd: FoodTrackerRestService) {
-  }
-
-  onFoodTrackerClicked() {
-    this.router.navigate(['food'])
-  }
-
-  onTaskClicked() {
-    this.router.navigate(["task"])
-  }
+  constructor(
+    private fd: FoodTrackerRestService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     if (this.fd.user === undefined) {
@@ -27,5 +21,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.authService.logout();
+  }
 
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
 }
