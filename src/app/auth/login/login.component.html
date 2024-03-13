@@ -1,23 +1,39 @@
-<div fxFlexFill style="align-items: center; justify-content: center">
-  <mat-card fxFlex="30" fxLayout="column">
-    <mat-card-header>
-      <h1>Admin login</h1>
-    </mat-card-header>
-    <mat-card-content>
-      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" fxFlex fxLayout="column">
-        <mat-form-field>
-          <mat-label>E-mail</mat-label>
-          <input formControlName="email" matInput type="email">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input formControlName="password" label="Password" matInput type="password">
-        </mat-form-field>
-        <button [disabled]="loginForm.invalid" mat-raised-button type="submit">Login</button>
-      </form>
-    </mat-card-content>
-
-  </mat-card>
+<div class="login-body" fxFlexFill fxLayout="column">
+  <img
+    slot="start"
+    alt="Vestlia Resort"
+    src="/assets/logo/VR_toolbar.svg"
+    width="200rem"
+    style="position: absolute; top: 64px"
+  />
+  <form
+    class="centered-div"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="loginForm"
+    fxLayout="column"
+  >
+    <mat-form-field class="custom-form-field" appearance="outline">
+      <mat-icon matPrefix>account_circle</mat-icon>
+      <input
+        formControlName="email"
+        matInput
+        type="email"
+        placeholder="E-mail"
+      />
+    </mat-form-field>
+    <mat-form-field class="custom-form-field" appearance="outline">
+      <mat-icon matPrefix>lock</mat-icon>
+      <input
+        formControlName="password"
+        matInput
+        type="password"
+        placeholder="Password"
+      />
+    </mat-form-field>
+    <div style="height: 78px"></div>
+    <button mat-button class="login-btn custom-button" type="submit">
+      Sign in
+    </button>
+    <p *ngIf="errMsg" class="error-msg">{{ errMsg }}</p>
+  </form>
 </div>
-
-
