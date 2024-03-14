@@ -1,8 +1,75 @@
-<div>
-    <mat-list fxFlexFill fxLayoutGap="20px" fxLayoutAlign="center center" fxLayout="column">
-      <mat-list-item *ngFor="let task of taskTemplateList" style="align-items: center; align-self: center" fxFlexFill fxLayoutAlign="center center">
-        <div fxFlex="25"></div>
-        <app-task-manager-item fxFlex="50" [task]="task" (updateEvent)="getTaskList()"></app-task-manager-item>
-      </mat-list-item>
-    </mat-list>
+<div fxFlexFill fxLayout="column" fxLayoutGap="20px">
+  <span class="page-title">Task Lists</span>
+  <div>
+    <button mat-button class="custom-button-2">
+      <mat-icon iconPositionStart>menu</mat-icon>
+      <div fxLayoutGap="10px">
+        <span>Department:</span>
+        <span class="selected-filter-val">All</span>
+      </div>
+    </button>
+    <span fxFlex></span>
+    <button mat-button class="custom-button-3" routerLink="edit-task-list">
+      <span>New Task List</span>
+      <mat-icon iconPositionEnd class="material-icons-outlined">task</mat-icon>
+    </button>
+  </div>
+  <div class="content-div">
+    <table>
+      <tr class="table-header-div">
+        <th class="table-header-name">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <span>Task List Name</span>
+            <mat-icon>search</mat-icon>
+          </div>
+        </th>
+        <th>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <span>Total Tasks</span>
+            <mat-icon>unfold_more</mat-icon>
+          </div>
+        </th>
+        <th>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <span>Department</span>
+            <mat-icon>filter_alt</mat-icon>
+          </div>
+        </th>
+        <th>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <span>Status</span>
+            <mat-icon>filter_alt</mat-icon>
+          </div>
+        </th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let task of taskTemplateList; index as i">
+        <td>{{ task.title }}</td>
+        <td>{{ task.tasks.length }}</td>
+        <td>
+          <span *ngFor="let dep of task.departments">{{
+            dep.departmentName
+          }}</span>
+        </td>
+        <td>
+          <div
+            class="{{
+              task.active ? 'custom-green-chip' : 'custom-yellow-chip'
+            }} item-chip"
+          >
+            {{ task.active ? "Published" : "Draft" }}
+          </div>
+        </td>
+        <td class="table-item-options">
+          <span class="item-btn" routerLink="edit-task-list/{{ task.id }}"
+            >Edit</span
+          >
+          /
+          <span class="item-btn" (click)="onDeleteTask(task, i)">Delete</span>
+          /
+          <span class="item-btn">Duplicate</span>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

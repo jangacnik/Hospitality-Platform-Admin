@@ -1,0 +1,14 @@
+<div *ngIf="!loadingData">
+  <app-task-list-edit
+    *ngIf="!showTaskEdit"
+    [departmentList]="departmentList"
+    [taskInfo]="taskInfo"
+    [taskForm]="taskForm"
+    (showTaskEdit)="getTaskEdit($event)"
+  ></app-task-list-edit>
+  <app-task-edit
+    *ngIf="showTaskEdit"
+    [task]="task"
+    (showTaskEdit)="getTaskEdit($event)"
+  ></app-task-edit>
+</div>

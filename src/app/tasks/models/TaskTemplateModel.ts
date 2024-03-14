@@ -8,9 +8,9 @@ export class TaskTemplateModel {
   active: boolean;
 
   constructor(isNew: boolean) {
-    this.title = "";
-    this.description = "";
-    if(isNew) {
+    this.title = 'New Task';
+    this.description = '';
+    if (isNew) {
       this.completed = false;
       this.takeover = false;
       this.active = true;

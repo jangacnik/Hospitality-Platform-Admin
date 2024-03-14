@@ -1,11 +1,36 @@
 ::ng-deep .mat-form-field.mat-form-field-should-float {
-  padding-top:20px;
+  padding-top: 20px;
 }
 
 ::ng-deep mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align {
   height: 0 !important;
-
 }
 ::ng-deep mat-form-field > div.mat-mdc-form-field-subscript-wrapper {
   height: 0 !important;
+}
+
+.dashboard-div {
+  padding: 20px;
+}
+
+.page-title {
+  font-family: "baskerville";
+  font-size: 26px;
+  font-weight: bold;
+  color: #ccaf8a;
+}
+
+.selected-filter-val {
+  color: #ccaf8a;
+}
+
+.tab {
+  display: none;
+}
+
+.content-div {
+  height: 100%;
+  background-color: #f8f8f5;
+  box-shadow: 0vh 0vh 0.3vh #666;
+  padding: 20px;
 }

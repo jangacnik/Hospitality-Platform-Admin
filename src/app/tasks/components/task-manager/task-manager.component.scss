@@ -1,0 +1,96 @@
+.dashboard-div {
+  padding: 20px;
+}
+
+.page-title {
+  font-family: "baskerville";
+  font-size: 26px;
+  font-weight: bold;
+  color: #ccaf8a;
+}
+
+.selected-filter-val {
+  color: #ccaf8a;
+}
+
+.tab {
+  display: none;
+}
+
+.content-div {
+  height: 100%;
+  background-color: #f8f8f5;
+  box-shadow: 0vh 0vh 0.3vh #666;
+  padding: 20px;
+}
+
+//-------------------------------------------
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  width: 100%;
+}
+
+tr {
+  margin: 10px;
+  box-shadow: 0vh 0vh 0.6vh #666;
+}
+
+th {
+  text-align: left;
+  padding: 20px;
+
+  mat-icon {
+    text-align: right;
+  }
+}
+
+td {
+  padding: 10px 20px;
+}
+
+tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.table-header-div {
+  background-color: #ebe3d9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.table-header-name {
+  background-color: #e4d9cc;
+}
+
+.table-header-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-item-options {
+  text-align: right;
+}
+
+.item-chip {
+  display: inline-block;
+  padding: 0px 10px;
+  min-width: 70px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.item-btn {
+  color: #ccaf8a;
+}
+
+.item-btn:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

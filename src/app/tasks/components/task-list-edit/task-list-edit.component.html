@@ -1,0 +1,240 @@
+<div fxFlexFill fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutGap="20px">
+    <button mat-icon-button routerLink="/task">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="page-title">Task Lists</span>
+  </div>
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="taskForm"
+    fxLayout="column"
+    fxLayoutGap="10px"
+    class="content-div"
+  >
+    <div fxLayout="row" fxLayoutAlign="space-between" class="header-div">
+      <div>
+        <span class="title">Edit Task List</span>
+      </div>
+      <button
+        mat-button
+        class="custom-button-2"
+        [disabled]="taskForm.invalid"
+        type="submit"
+      >
+        <span>Save</span>
+        <mat-icon iconPositionEnd class="material-icons-outlined edit-icons"
+          >save</mat-icon
+        >
+      </button>
+    </div>
+    <div
+      fxLayout="row"
+      fxLayoutGap="10px"
+      fxLayoutAlign="start center"
+      class="edit-div"
+    >
+      <mat-icon class="material-icons-outlined edit-icons">edit</mat-icon>
+      <span>Name:</span>
+      <input type="text" formControlName="title" placeholder="Title..." />
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <div
+        fxLayout="column"
+        fxLayoutGap="10px"
+        class="edit-div"
+        style="flex: 1 0 0"
+      >
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+          <mat-icon class="edit-icons">edit_documents</mat-icon>
+          <span>Short Description:</span>
+        </div>
+        <textarea rows="3" placeholder="Description..."></textarea>
+      </div>
+      <div fxLayout="column" fxLayoutGap="10px" style="flex: 1 0 0">
+        <div fxLayout="row" fxLayoutGap="10px" class="edit-div">
+          <mat-icon class="material-icons-outlined edit-icons"
+            >workspaces</mat-icon
+          >
+          <span>Departments:</span>
+          <mat-form-field class="dense-2" fxFlex>
+            <mat-select formControlName="departments" multiple>
+              <mat-option *ngFor="let d of departmentList" [value]="d.id">
+                {{ d.departmentName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <div fxLayout="row" fxLayoutGap="10px" class="edit-div">
+          <mat-icon class="material-icons-outlined edit-icons">hub</mat-icon>
+          <span>Department Groups:</span>
+          <input type="text" placeholder="All..." />
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px" class="edit-div">
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <mat-icon class="material-icons-outlined edit-icons"
+              >calendar_month</mat-icon
+            >
+            <span>Date:</span>
+            <span class="semibold">DD.MM.YYYY - DD.MM.YYYY</span>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div
+      fxLayout="row"
+      fxLayoutGap="10px"
+      fxLayoutAlign="start center"
+      class="edit-div"
+    >
+      <mat-icon class="edit-icons">schedule</mat-icon>
+      <span>Active from:</span>
+      <input
+        matInput
+        [format]="24"
+        formControlName="activeFrom"
+        [ngxMatTimepicker]="pickerD"
+        placeholder="00:00"
+      />
+      <div class="ngx-mtp-box-bordered">
+        <ngx-mat-timepicker
+          color="primary"
+          appendToInput="false"
+          #pickerD
+        ></ngx-mat-timepicker>
+      </div>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayoutGap="20px"
+      class="edit-div"
+      [formGroupName]="'repeat'"
+    >
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+        <mat-icon class="edit-icons">repeat</mat-icon>
+        <span>Repeat:</span>
+        <mat-radio-group
+          name="repeatType"
+          [formControlName]="'repeatType'"
+          style="width: 100%; margin-top: 10px"
+        >
+          <mat-radio-button
+            (click)="onWeekly()"
+            color="primary"
+            name="meekly"
+            value="WEEKLY"
+            >Weekly
+          </mat-radio-button>
+          <mat-radio-button
+            (click)="resetRepeat()"
+            color="primary"
+            name="monthly"
+            value="MONTHLY"
+            >Monthly
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div
+        [hidden]="
+          taskForm.controls.repeat.controls.repeatType.value !== 'WEEKLY'
+        "
+        style="width: 100%; margin-top: 10px"
+      >
+        <mat-form-field style="width: 100%; margin-bottom: 10px">
+          <mat-label>Repeat every</mat-label>
+          <mat-select [formControlName]="'repeatEvery'">
+            <mat-option *ngFor="let d of weekRange" [value]="d"
+              >{{ d }} weeks</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-chip-listbox
+          [formControlName]="'repeatOnWeekDays'"
+          [multiple]="true"
+          style="margin: 10px"
+        >
+          <mat-chip-option *ngFor="let day of weekDays" [value]="day.id">{{
+            day.label
+          }}</mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+      <div
+        [hidden]="
+          taskForm.controls.repeat.controls.repeatType.value !== 'MONTHLY'
+        "
+      >
+        <mat-tab-group (selectedTabChange)="resetMonthly()">
+          <mat-tab label="Repeat on date">
+            <mat-form-field style="width: 100%">
+              <mat-label>Repeat on:</mat-label>
+              <mat-select [formControlName]="'repeatOnMonthDay'">
+                <mat-option
+                  *ngFor="let d of dayRangeMonthFull"
+                  [value]="d.id"
+                  >{{ d.label }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </mat-tab>
+          dayRangeMonthFull
+          <mat-tab label="Repeat on day">
+            <mat-form-field style="width: 100%">
+              <mat-label>Repeat every</mat-label>
+              <mat-select [formControlName]="'repeatDayEnumValue'">
+                <mat-option *ngFor="let d of dayRangeMonth" [value]="d.id">{{
+                  d.label
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-chip-listbox
+              [formControlName]="'repeatDayEnum'"
+              [multiple]="false"
+            >
+              <mat-chip-option
+                *ngFor="let day of weekDaysMonth"
+                [value]="day.id"
+                >{{ day.label }}</mat-chip-option
+              >
+            </mat-chip-listbox>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="10px" class="edit-div">
+      <div fxLayout="row" fxLayoutGap="10px">
+        <mat-icon class="edit-icons">checklist_rtl</mat-icon>
+        <span class="tasks-title">Tasks</span>
+        <span class="tasks-count"
+          >{{ taskForm.controls.tasks.value.length }} tasks</span
+        >
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutGap="20px"
+        class="task-div"
+        *ngFor="let task of taskForm.controls.tasks.value; index as i"
+      >
+        <span>{{ i + 1 }}</span>
+        <span class="semibold">{{ task.title }}</span>
+        <span fxFlex></span>
+        <span class="task-btn" (click)="onTaskEditBtnClick(task, i)">Edit</span>
+      </div>
+      <div fxLayoutAlign="center center">
+        <span class="task-btn" (click)="createTask()">+ Add Task</span>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- <div class="custom-select">
+  <div class="select-box" (click)="toggleOptions()">
+    <span>Selected Fruits</span>
+    <span>&#9660;</span>
+  </div>
+  <div class="options-container">
+    <div class="option">Apple</div>
+    <div class="option">Banana</div>
+    <div class="option">Orange</div>
+    <div class="option">Grape</div>
+    <div class="option">Strawberry</div>
+  </div>
+</div> -->
