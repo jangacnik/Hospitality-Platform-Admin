@@ -318,10 +318,10 @@ export class TaskEditDialogComponent implements OnInit {
   }
 selectedTask: any;
   createTask() {
-    this.taskForm.controls.tasks.value.unshift(new TaskTemplateModel(true));
+    this.taskForm.controls.tasks.value.push(new TaskTemplateModel(true));
     this.taskForm.updateValueAndValidity();
     setTimeout(() => {
-      this.selectedTask = this.taskForm.controls.tasks.value[0];
+      this.selectedTask = this.taskForm.controls.tasks.value[this.taskForm.controls.tasks.value.length-1];
       this.editNew = true;
     },50);
   }

@@ -94,7 +94,7 @@
                             style="width: 100%; height: 490px;"
                             fxFlexFill
                             *ngFor="let task of taskForm.controls.tasks.value; index as i;">
-               <app-task-edit-item style="width: 100%" fxFlex [taskInfo]="task" [editing]="i === 0 && editNew"
+               <app-task-edit-item style="width: 100%" fxFlex [taskInfo]="task" [editing]=" editNew && i === taskForm.controls.tasks.value.length-1 "
                                    [appScrollIntoView]="task === selectedTask" [index]=" i"
                (deleteEvent)="deleteTask($event)" (editingEvent)="editNew = false"></app-task-edit-item>
                   </mat-list-item>
