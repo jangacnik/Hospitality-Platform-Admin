@@ -20,7 +20,7 @@ export class ReportComponent implements OnInit, AfterViewChecked {
 
   searchForm = new FormGroup({
     searchName: new FormControl('', []),
-    searchDepartment: new FormControl('', [])
+    searchDepartment: new FormControl(undefined, [])
   });
 
   entries: MonthlyMealInfo[];
@@ -55,12 +55,14 @@ export class ReportComponent implements OnInit, AfterViewChecked {
     if (dep && name) {
       this.entries = this.entriesOld.filter((val) => {
         return (val.name).toLowerCase().includes(<string>name?.toLowerCase()) &&
-          val.department.includes(dep)
+          val.department.filter(d => d.departmentId === dep.departmentId).length > 0
       });
     } else if (dep) {
-      this.entries = this.entriesOld.filter((val) => {
-        return val.department.includes(dep)
-      });
+      this.entries = this.entriesOld.filter(fd=> fd.department.filter(d => d.departmentId === dep.departmentId).length > 0);
+
+      // this.entries = this.entriesOld.filter((val) => {
+      //   return val.department.includes(dep)
+      // });
     } else if (name) {
       this.entries = this.entriesOld.filter((val) => {
         return (val.name).toLowerCase().includes(<string>name?.toLowerCase())
@@ -87,7 +89,6 @@ export class ReportComponent implements OnInit, AfterViewChecked {
       this.entries.sort(
         (a, b) =>
           Number(a.employeeNumber) - Number(b.employeeNumber))
-
       this.dataReady = true;
       this.noReportsAvailable = false;
     }, err => {
@@ -124,7 +125,11 @@ export class ReportComponent implements OnInit, AfterViewChecked {
       const row:any = [];
       keys.forEach((header) => {
         if(header === "department"){
-          row.push(item[header].join(", "));
+          let departments = [];
+          for (let d of item[header]) {
+            departments.push(d.departmentName);
+          }
+          row.push(departments.join(", "));
         }else if (header === "employeeNumber") {
           row.push(+item[header])
         } else {

@@ -43,7 +43,7 @@
         </th>
         <th></th>
       </tr>
-      <tr *ngFor="let task of taskTemplateList; index as i">
+      <tr *ngFor="let task of taskTemplateList.reverse(); index as i">
         <td>{{ task.title }}</td>
         <td>{{ task.tasks.length }}</td>
         <td>

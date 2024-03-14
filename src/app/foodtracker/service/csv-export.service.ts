@@ -10,7 +10,6 @@ export class CsvExportService {
 
   downloadFile(data: any, filename = 'data') {
     let csvData = this.ConvertToCSV(data, ['Employee Number', 'Name', 'Department', 'Number of reserved meals', "Number of used meals", "Total price"]);
-    // console.log(csvData)
     let blob = new Blob(['\ufeff' + csvData], {type: 'text/csv;charset=utf-8;'});
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);

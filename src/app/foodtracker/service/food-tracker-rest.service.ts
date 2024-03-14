@@ -39,7 +39,7 @@ export class FoodTrackerRestService {
     return this.http.put<any>(enviroment.baseUrlTest + "department/user", usr);
   }
 
-  public createUser(usr: CreateFoodTrackerUserModel): Observable<any> {
+  public createUser(usr: any): Observable<any> {
     return this.http.post<any>(enviroment.baseUrlTest + "department/user", usr);
   }
 

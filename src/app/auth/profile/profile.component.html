@@ -33,7 +33,7 @@
           <mat-form-field disabled fxFlex style="width: 100%">
             <mat-label>Departments</mat-label>
             <mat-select  formControlName="departments" multiple>
-              <mat-option *ngFor="let d of departmentList" [value]="d.id">{{d.id}}</mat-option>
+              <mat-option *ngFor="let d of departmentList" [value]="d.departmentId">{{d.departmentId}}</mat-option>
             </mat-select>
           </mat-form-field>
 
